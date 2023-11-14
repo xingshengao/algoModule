@@ -6,7 +6,7 @@ int lis(vector<T> A) {
     vector<T> dp;
     for (auto x : A) {
         auto it = lower_bound(dp.begin(), dp.end(), x);
-        if (x == dp.end())
+        if (it == dp.end())
             dp.push_back(x);
         else
             *it = x;
@@ -19,7 +19,7 @@ int lis(vector<T> A) {
     vector<T> dp;
     for (auto x : A) {
         auto it = upper_bound(dp.begin(), dp.end(), x);
-        if (x == dp.end())
+        if (it == dp.end())
             dp.push_back(x);
         else
             *it = x;
