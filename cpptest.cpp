@@ -69,22 +69,21 @@ typedef pair<int, int> PII;
 vector<PII> dirs = {{0, 1}, {1, 0}, {0, -1}, {-1, 0}};
 static constexpr long long mod = 1e9 + 7;
 using LL = long long;
-class Solution {
-   public:
-    template <typename T>
-    int lis(vector<T> A) {
-        vector<T> dp;
-        for (auto x : A) {
-            auto it = lower_bound(dp.begin(), dp.end(), x);
-            if (x == dp.end())
-                dp.push_back(x);
-            else
-                *it = x;
-        }
-        return dp.size();
+class Encrypter {
+public:
+    Encrypter(vector<char>& keys, vector<string>& values, vector<string>& dictionary) {
+        
     }
-    int lengthOfLIS(vector<int>& nums) { return lis(nums); }
+    
+    string encrypt(string word1) {
+
+    }
+    
+    int decrypt(string word2) {
+
+    }
 };
+
 int main() {
     // Solution so;
     return 0;
