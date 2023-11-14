@@ -6,6 +6,7 @@ class Solution1 {
     vector<int> smallestSubarrays(vector<int>& nums) {
         int n = nums.size();
         vector<int> ans(n);
+        typedef pair<int, int> PII;
         vector<PII> vec;  // 存储以i为左端点的按位或的值 + 对应子数组右端点的最小值
         // 这样在遍历时ors值最大的元素对应的子数组右端点的最小值, 就是要求的最短子数组的右端点
         for (int i = n - 1; i >= 0; --i) {
