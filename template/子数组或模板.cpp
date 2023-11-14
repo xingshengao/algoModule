@@ -1,7 +1,7 @@
 #include <bits/stdc++.h>
 using namespace std;
 typedef pair<int, int> PII;
-class Solution {
+class Solution1 {
    public:
     vector<int> smallestSubarrays(vector<int>& nums) {
         int n = nums.size();
@@ -24,6 +24,32 @@ class Solution {
             }
             vec.resize(k + 1);  // k 是已去重的最后一个元素下标, 因此保留k+1个元素
             // 本题只用到了vec[0], 即最大的或值, 如果题目改为任意数字, 可以在vec中查找
+            ans[i] = vec[0].second - i + 1;
+        }
+        return ans;
+    }
+};
+
+class Solution {
+   public:
+    vector<int> smallestSubarrays(vector<int>& nums) {
+        int n = nums.size();
+        vector<int> ans(n);
+        vector<PII> vec;
+        for (int i = n - 1; i >= 0; --i) {
+            vec.emplace_back(0, i);
+            for (int j = 0; j < vec.size(); ++j) {
+                vec[j].first |= nums[i];
+            }
+            int j = 0, k = 0;
+            for (; j < vec.size(); ++j) {
+                if (vec[k].first != vec[j].first) {
+                    vec[++k] = vec[j];
+                } else {
+                    vec[k].second = vec[j].second;
+                }
+            }
+            vec.resize(k + 1);
             ans[i] = vec[0].second - i + 1;
         }
         return ans;
