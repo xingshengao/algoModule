@@ -69,31 +69,30 @@ typedef pair<int, int> PII;
 vector<PII> dirs = {{0, 1}, {1, 0}, {0, -1}, {-1, 0}};
 static constexpr long long mod = 1e9 + 7;
 using LL = long long;
-class Encrypter {
+class Solution {
    public:
-    // 加密唯一, 解密不唯一
-    std::unordered_map<char, string> mp;     // 字符->字符串
-    std::unordered_map<std::string, int> m;  // 维护dic中字符串加密后的出现次数
-    Encrypter(vector<char>& keys, vector<string>& values, vector<string>& dictionary) {
-        for (int i = 0; i < keys.size(); ++i) {
-            mp[keys[i]] = values[i];
+    int maximumScore(vector<int>& nums, int k) {
+        int n = nums.size();
+        vector<int> L(n + 1, -1), R(n + 1, n);  // L, R分别存储左右两边第一个小于nums[i]的下标
+        vector<int> st;
+        for (int i = 0; i < n; ++i) {
+            while (st.size() && nums[st.back()] >= nums[i]) st.pop_back();
+            if (st.size()) L[i] = st.back();
+            st.push_back(i);
         }
-        for (auto dic : dictionary) {
-            m[encrypt(dic)] += 1;
+        st.resize(0);
+        for (int i = n - 1; i >= 0; --i) {
+            while (st.size() && nums[st.back()] >= nums[i]) st.pop_back();
+            if (st.size()) L[i] = st.back();
+            st.push_back(i);
         }
+        int ans = 0;
+        for (int i = 0; i < n; ++i) {
+            if (L[i] + 1 <= k && R[i] - 1 >= k) ans = max(ans, (R[i] - L[i] - 1) * nums[i]);
+        }
+        return ans;
     }
-
-    string encrypt(string s) {
-        std::string res = "";
-        for (auto c : s) {
-            res = res + mp[c];
-        }
-        return res;
-    }
-
-    int decrypt(string word2) { return m[word2]; }
 };
-
 int main() {
     // Solution so;
     return 0;
