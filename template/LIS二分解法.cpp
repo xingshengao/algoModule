@@ -13,7 +13,7 @@ int lis(vector<T> A) {
     }
     return dp.size();
 }
-// 非递减的LIS子序列, 二分+贪心
+// 非递减的LIS子序列, 二分+贪心模板
 template <typename T>
 int lis(vector<T> A) {
     vector<T> dp;
