@@ -69,7 +69,30 @@ typedef pair<int, int> PII;
 vector<PII> dirs = {{0, 1}, {1, 0}, {0, -1}, {-1, 0}};
 static constexpr long long mod = 1e9 + 7;
 using LL = long long;
+class Encrypter {
+   public:
+    // 加密唯一, 解密不唯一
+    std::unordered_map<char, string> mp;     // 字符->字符串
+    std::unordered_map<std::string, int> m;  // 维护dic中字符串加密后的出现次数
+    Encrypter(vector<char>& keys, vector<string>& values, vector<string>& dictionary) {
+        for (int i = 0; i < keys.size(); ++i) {
+            mp[keys[i]] = values[i];
+        }
+        for (auto dic : dictionary) {
+            m[encrypt(dic)] += 1;
+        }
+    }
 
+    string encrypt(string s) {
+        std::string res = "";
+        for (auto c : s) {
+            res = res + mp[c];
+        }
+        return res;
+    }
+
+    int decrypt(string word2) { return m[word2]; }
+};
 
 int main() {
     // Solution so;
