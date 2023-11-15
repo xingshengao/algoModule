@@ -1,6 +1,6 @@
 #include <bits/stdc++.h>
 using namespace std;
-
+// 字典树
 // 数组存储
 struct trie {
     int nex[100000][26], cnt;
