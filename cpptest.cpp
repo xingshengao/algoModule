@@ -6,6 +6,8 @@ const double PI = acos(-1);
 #define all(c) c.begin(), c.end()
 typedef pair<long long, long long> PLL;
 typedef pair<int, int> PII;
+int dx[4] = {0, 1, 0, -1};
+int dy[4] = {1, 0, -1, 0};
 vector<PII> dirs8 = {{-1, -1}, {-1, 1}, {-1, 0}, {0, 1}, {0, -1}, {1, 1}, {1, -1}, {1, 0}};
 string to_string(string s) { return '"' + s + '"'; }
 
@@ -69,30 +71,7 @@ typedef pair<int, int> PII;
 vector<PII> dirs = {{0, 1}, {1, 0}, {0, -1}, {-1, 0}};
 static constexpr long long mod = 1e9 + 7;
 using LL = long long;
-class Solution {
-   public:
-    int maximumScore(vector<int>& nums, int k) {
-        int n = nums.size();
-        vector<int> L(n + 1, -1), R(n + 1, n);  // L, R分别存储左右两边第一个小于nums[i]的下标
-        vector<int> st;
-        for (int i = 0; i < n; ++i) {
-            while (st.size() && nums[st.back()] >= nums[i]) st.pop_back();
-            if (st.size()) L[i] = st.back();
-            st.push_back(i);
-        }
-        st.resize(0);
-        for (int i = n - 1; i >= 0; --i) {
-            while (st.size() && nums[st.back()] >= nums[i]) st.pop_back();
-            if (st.size()) L[i] = st.back();
-            st.push_back(i);
-        }
-        int ans = 0;
-        for (int i = 0; i < n; ++i) {
-            if (L[i] + 1 <= k && R[i] - 1 >= k) ans = max(ans, (R[i] - L[i] - 1) * nums[i]);
-        }
-        return ans;
-    }
-};
+
 int main() {
     // Solution so;
     return 0;
