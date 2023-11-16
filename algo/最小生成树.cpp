@@ -82,7 +82,7 @@ class _Solution {
         int ans = 0, edge_cnt = 0;
         vector<bool> vis = vector<bool>(n, 0);
         vis[1] = 1;
-        for (auto& e : edges[1]) {
+        for (auto& e : g[1]) {
             q.push(e);
         }
         while (q.size()) {
