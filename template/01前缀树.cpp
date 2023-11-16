@@ -1,6 +1,6 @@
 #include <bits/stdc++.h>
 using namespace std;
-// 01前缀树板子
+// 01前缀树
 struct Node {
     array<Node*, 2> children{};
     int cnt = 0; // 子树大小
