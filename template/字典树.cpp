@@ -27,7 +27,7 @@ struct trie {
     }
 };
 
-// 指针实现,sss,,,房贷首付
+// 指针实现,sss,,,房贷首付的撒旦
 class Trie {
    public:
     Trie* son[26];
