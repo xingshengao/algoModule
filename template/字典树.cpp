@@ -27,7 +27,7 @@ struct trie {
     }
 };
 
-// 指针实现,sss,,,
+// 指针实现,sss,,,房贷首付
 class Trie {
    public:
     Trie* son[26];
