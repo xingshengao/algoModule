@@ -27,7 +27,7 @@ struct trie {
     }
 };
 
-// 指针实现
+// 指针实现,sss
 class Trie {
    public:
     Trie* son[26];
