@@ -73,18 +73,8 @@ static constexpr long long mod = 1e9 + 7;
 using LL = long long;
 class Solution {
 public:
-    int stoneGameVII(vector<int>& nums) {
-        // 预处理, g[i][j]代表i到j的和
-        int n = nums.size();
-        int g[n][n]; memset(g, 0, sizeof(g));
-        for (int i = 0; i < n; ++i) {
-            int ss = 0;
-            for (int j = i; j < n; ++i) {
-                ss += nums[j];
-                g[i][j] = ss;
-            }
-        }
-        // 博弈DP
+    bool stoneGame(vector<int>& piles) {
+        int a = 0, b = 0;
         
     }
 };
