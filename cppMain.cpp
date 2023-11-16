@@ -3,6 +3,7 @@
 using namespace std;
 const double PI = acos(-1);
 typedef pair<int, int> PII;
+typedef long long LL;
 vector<pair<int, int>> dirs = {{0, 1}, {0, -1}, {1, 0}, {-1, 0}};
 int dx[4] = {0, 1, 0, -1};
 int dy[4] = {1, 0, -1, 0};
@@ -54,7 +55,6 @@ void mydebug(const char* format, Head H, Tail... T) {
 #define debug(...) mydebug(#__VA_ARGS__, __VA_ARGS__)
 
 static constexpr long long mod = 998244353;
-
 void solve() {}
 signed main() {
     std::ios::sync_with_stdio(0), std::cout.tie(0), std::cin.tie(0);
