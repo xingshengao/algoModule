@@ -67,6 +67,7 @@ class _Solution {
    public:
     int minCostConnectPoints(vector<vector<int>>& points) {
         int n = points.size();
+        if (n <= 1) return 0;
         typedef pair<int, int> PII;
         vector<vector<PII>> g(n);  // 建图, 存的是代价和下一个节点
         for (int i = 0; i < n; ++i) {
@@ -78,28 +79,32 @@ class _Solution {
                 g[j].push_back(PII(cost, i));
             }
         }
+        vector<bool> vis(n, false);
+        typedef pair<int, int> PII;
         priority_queue<PII, vector<PII>, greater<PII>> q;
-        int ans = 0, edge_cnt = 0;
-        vector<bool> vis = vector<bool>(n, 0);
-        vis[1] = 1;
-        for (auto& e : g[1]) {
+        // 选一个起点, 把从他的出边选最小的边
+        vis[0] = 1;
+        for (auto& e : g[0]) {
             q.push(e);
         }
+        int ans = 0, edge_cnt = 0;
         while (q.size()) {
+            // 选出当前代价最小的边
             auto [cost, u] = q.top();
             q.pop();
-            if (!vis[u]) {
-                vis[u] = 1;
-                ans += cost;
-                edge_cnt += 1;
-                if (edge_cnt == n - 1) {
-                    return ans;
-                }
-                for (auto e : g[u]) {
-                    q.push(e);
-                }
+            if (vis[u]) {
+                continue;
+            }
+            vis[u] = 1;
+            ans += cost;
+            edge_cnt += 1;
+            if (edge_cnt == n - 1) {
+                return ans;
+            }
+            for (auto v : g[u]) {
+                q.push(v);
             }
         }
         return -1;
-    }
+    };
 };
