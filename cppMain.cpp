@@ -55,7 +55,35 @@ void mydebug(const char* format, Head H, Tail... T) {
 #define debug(...) mydebug(#__VA_ARGS__, __VA_ARGS__)
 
 static constexpr long long mod = 998244353;
-void solve() {}
+bool check(string& a, string& b) {
+    int cnt = 0;
+    for (int i = 0; i < a.size(); ++i) {
+        cnt += a[i] != b[i];
+        if (cnt > 1) return false;
+    }
+    return cnt == 1;
+}
+void solve() {
+    int n, m;
+    cin >> n >> m;
+    vector<string> vec(n);
+    sort(vec.begin(), vec.end());
+    for (int i = 0; i < n; ++i) cin >> vec[i];
+    do {
+        bool flag = true;
+        for (int i = 0; i + 1 < n; ++i) {
+            if (not check(vec[i], vec[i + 1])) {
+                flag = false;
+                break;
+            }
+        }
+        if (flag) {
+            cout << "Yes" << endl;
+            return;
+        }
+    } while (next_permutation(vec.begin(), vec.end()));
+    cout << "No" << endl;
+}
 signed main() {
     std::ios::sync_with_stdio(0), std::cout.tie(0), std::cin.tie(0);
     int T = 1;

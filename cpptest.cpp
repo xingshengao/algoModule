@@ -71,17 +71,38 @@ typedef pair<int, int> PII;
 vector<PII> dirs = {{0, 1}, {1, 0}, {0, -1}, {-1, 0}};
 static constexpr long long mod = 1e9 + 7;
 using LL = long long;
-class Solution {
-public:
-    int stoneGameVI(vector<int>& A, vector<int>& B) {
-        int n = A.size();
-        typedef pair<int, int> PII;
-        vector<PII> vec;
-        
-        
+struct DSU{
+    vector<int> f, siz;
+    int n;
+    DSU(){}
+    DSU(int n){
+        f.resize(n);
+        iota(f.begin(), f.end(), 0);
+        siz.resize(n);
+        siz.assign(n, 1);        
+    }
+    int find(int x) {
+        while (x != f[x]) {
+            x = f[x] = f[f[x]];
+        }
+        return x;
+    }
+    void merge(int x, int y) {
+        x = find(x);
+        y = find(y);
+        if (x == y) return;
+        siz[x] += siz[y];
+        f[y] = x;
     }
 };
+// class Solution {
+// public:
+//     string robotWithString(string s) {
+//         int n = s.size(), i = 0, j = 0;
+//         while ()
+//     }
+// };
 int main() {
-    // Solution so;
+ 
     return 0;
 }
