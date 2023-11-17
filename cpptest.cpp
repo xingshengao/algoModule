@@ -73,8 +73,11 @@ static constexpr long long mod = 1e9 + 7;
 using LL = long long;
 class Solution {
 public:
-    bool stoneGame(vector<int>& piles) {
-        int a = 0, b = 0;
+    int stoneGameVI(vector<int>& A, vector<int>& B) {
+        int n = A.size();
+        typedef pair<int, int> PII;
+        vector<PII> vec;
+        
         
     }
 };
