@@ -55,63 +55,45 @@ void mydebug(const char* format, Head H, Tail... T) {
 #define debug(...) mydebug(#__VA_ARGS__, __VA_ARGS__)
 
 static constexpr long long mod = 998244353;
-struct DSU {
-    vector<int> f;
-    int part;
-    DSU() {}
-    DSU(int n) { init(n); }
-    void init(int n) {
-        f.resize(n);
-        iota(f.begin(), f.end(), 0);
-        part = n;
+bool check(string& a, string& b) {
+    int cnt = 0;
+    for (int i = 0; i < a.size(); ++i) {
+        cnt += a[i] != b[i];
+        if (cnt > 1) return false;
     }
-    int find(int x) {
-        while (x != f[x]) {
-            x = f[x] = f[f[x]];
-        }
-        return x;
-    }
-    bool merge(int x, int y) {
-        x = find(x);
-        y = find(y);
-        if (x == y) {
-            return false;
-        }
-        part -= 1;
-        f[y] = x;
-        return true;
-    }
-};
-
+    return cnt == 1;
+}
 void solve() {
-    int n, m, k;
-    cin >> n >> m >> k;
-    // 最小生成树, 加边法
-    DSU dsu(n);
-    typedef tuple<LL, LL, LL> TIII;
-    vector<TIII> vec;  // 代价, 点点
-    int ans = 0;
-    for (int i = 0; i < m; ++i) {
-        int u, v, w;
-        cin >> u >> v >> w;
-        u -= 1, v -= 1;
-        vec.push_back(TIII(w, u, v));
-    }
-    sort(vec.begin(), vec.end(), [](const TIII& a, const TIII & b) {
-        return get<0>(a) < get<0>(b);
-    });
-    for (auto [w, u, v] : vec) {
-        int fau = dsu.find(u);
-        int fav = dsu.find(v);
-        if (fav == fau) continue;
-        ans += w;
-        ans %= k;
-        dsu.merge(u, v);
-        if (dsu.part == 1) {
-            break;
+    int N, Q;
+    cin >> N >> Q;
+    vector<int> deg(N);
+    vector<set<int>> e(N);
+    int ans = N;
+    while (Q--) {
+        int o;
+        cin >> o;
+        if (o == 1) {
+            int u, v;
+            cin >> u >> v;
+            u--, v--;
+            ans -= !deg[u]++;
+            ans -= !deg[v]++;
+            e[u].insert(v);
+            e[v].insert(u);
+        } else {
+            int u;
+            cin >> u;
+            u--;
+            ans += (deg[u] > 0);
+            deg[u] = 0;
+            for (auto v : e[u]) {
+                ans += !--deg[v];
+                e[v].erase(u);
+            }
+            e[u].clear();
         }
+        cout << ans << "\n";
     }
-    cout << ans % k << endl;
 }
 signed main() {
     std::ios::sync_with_stdio(0), std::cout.tie(0), std::cin.tie(0);
