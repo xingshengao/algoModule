@@ -72,22 +72,9 @@ vector<PII> dirs = {{0, 1}, {1, 0}, {0, -1}, {-1, 0}};
 static constexpr long long mod = 1e9 + 7;
 using LL = long long;
 class Solution {
-   public:
-    long long minIncrementOperations(vector<int>& nums, int k) {
-        LL ans = 0;
-        int n = nums.size();
-        vector<LL> dp(n + 1, LLONG_MAX);  // dp[i]代表改变第i个数字的最小操作数量
-        dp[0] = 0;
-        for (int i = 1; i <= n; ++i) {
-            int delta = max(0, k - nums[i - 1]);
-            // 第一种情况, 中间没有不选的
-            dp[i] = min(dp[i], dp[i - 1] + delta);
-            // 第二种情况, 中间有一个不选
-            if (i >= 2) dp[i] = min(dp[i], dp[i - 2] + delta);
-            // 第三种情况, 中间有两个不选
-            if (i >= 3) dp[i] = min(dp[i], dp[i - 3] + delta);
-        }
-        return min({dp[n], dp[n - 1], dp[n - 2]});
+public:
+    int maxSum(vector<int>& nums1, vector<int>& nums2) {
+        
     }
 };
 int main() {
