@@ -11,16 +11,12 @@ struct BIT {
         this->tr.resize(n + 1, INF);
     }
     int lowbit(int x) { return x & (-x); }
-    void modify(int pos, int val) {
-        for (int i = pos; i <= n; i += lowbit(i)) {
-            tr[i] = min(tr[i], val);
-        }
+    void modify(int x, int v) {
+        for (; x <= n; x += lowbit(x)) tr[x] = min(tr[x], v);
     }
-    int query(int pos) {
+    int query(int x) {
         int res = INF;
-        for (int i = pos; i; i -= lowbit(i)) {
-            res = min(res, tr[i]);
-        }
+        for (; x; x -= lowbit(x)) res = min(res, tr[x]);
         return res;
     }
 };
