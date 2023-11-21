@@ -72,11 +72,37 @@ vector<PII> dirs = {{0, 1}, {1, 0}, {0, -1}, {-1, 0}};
 static constexpr long long mod = 1e9 + 7;
 using LL = long long;
 class Solution {
-public:
-    int maxSum(vector<int>& nums1, vector<int>& nums2) {
-        
+   public:
+    int numBusesToDestination(vector<vector<int>>& routes, int source, int target) {
+        if (source == target) return 0;
+        map<int, set<int>> mp;                     // 标记站点出现的线路
+        vector<int> vis(routes.size(), 0);         // 标记访问过的线路
+        for (int i = 0; i < routes.size(); ++i) {  // 标记每个站点出现的线路
+            for (int sta : routes[i]) mp[sta].insert(i);
+        }
+        queue<int> q;
+        q.push(source);
+        int step = 0;
+        while (q.size()) {
+            step += 1;
+            int siz = q.size();
+            for (int i = 0; i < siz; ++i) {
+                int site = q.front();
+                q.pop();
+                for (int r : mp[site]) {
+                    if (vis[r]) continue;
+                    for (int v : routes[r]) {
+                        if (v == target) return step;
+                        q.push(v);
+                    }
+                    vis[r] = 1;
+                }
+            }
+        }
+        return -1;
     }
 };
+
 int main() {
     // Solotion so;
     return 0;

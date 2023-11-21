@@ -56,12 +56,29 @@ void mydebug(const char* format, Head H, Tail... T) {
 
 static constexpr long long mod = 998244353;
 void solve() {
-  
+    int n, m;  // m个数对, 都在[1: n], 能不能找到
+    vector<array<int, 2>> vec(m);
+    for (int i = 0; i < m; ++i) cin >> vec[i][0] >> vec[i][1];
+    bool ok = true;
+    int x = vec[0][0];
+    int j = -1;
+    for (int i = 0; i < m; ++i) {
+        if (vec[i][0] == x || vec[i][1] == x) continue;
+        else {
+            j = i;
+            break;
+        }
+    }
+    if (j == -1) {
+        cout << "YES" << endl;
+        return;
+    }
+    
 }
 signed main() {
     std::ios::sync_with_stdio(0), std::cout.tie(0), std::cin.tie(0);
     int T = 1;
-    cin >> T;
+    // cin >> T;
     while (T--) {
         solve();
     }
