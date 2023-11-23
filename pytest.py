@@ -10,5 +10,7 @@ from numpy import arange
 from tqdm import tqdm
 
 if __name__ == '__main__':
-    for i in tqdm(range(1000)):
-        time.sleep(0.1)
+    a = "faddab"
+    s = "ab"
+    b = a.count(a[1])
+    print(b)

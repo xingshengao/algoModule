@@ -72,37 +72,34 @@ vector<PII> dirs = {{0, 1}, {1, 0}, {0, -1}, {-1, 0}};
 static constexpr long long mod = 1e9 + 7;
 using LL = long long;
 class Solution {
-   public:
-    int numBusesToDestination(vector<vector<int>>& routes, int source, int target) {
-        if (source == target) return 0;
-        map<int, set<int>> mp;                     // 标记站点出现的线路
-        vector<int> vis(routes.size(), 0);         // 标记访问过的线路
-        for (int i = 0; i < routes.size(); ++i) {  // 标记每个站点出现的线路
-            for (int sta : routes[i]) mp[sta].insert(i);
+public:
+    int palindromePartition(string s, int k) {
+        int n = s.size();
+        int g[110][110]; memset(g, 0, sizeof(g)); // g[i][j]代表修改[i: j]的开销
+        auto calc = [&](int i, int j) -> int {
+            int res = 0;
+            for (int l = i, r = j; l < r; ++l, --r) if (s[l] != s[r]) res += 1;
+            return res;
+        };
+        for (int i = 0; i < n; ++i) {
+            g[i][i] = 0;
+            for (int j = i + 1; j < n; ++j) g[i][j] = calc(i, j);
         }
-        queue<int> q;
-        q.push(source);
-        int step = 0;
-        while (q.size()) {
-            step += 1;
-            int siz = q.size();
-            for (int i = 0; i < siz; ++i) {
-                int site = q.front();
-                q.pop();
-                for (int r : mp[site]) {
-                    if (vis[r]) continue;
-                    for (int v : routes[r]) {
-                        if (v == target) return step;
-                        q.push(v);
-                    }
-                    vis[r] = 1;
-                }
+        vector memo(n + 1, vector<int>(k + 1, 1e9));
+        // dfs(i, j)代表s的前i个字符分成j组的子问题
+        function<int(int, int)> dfs = [&](int i, int j) -> int {
+            if (memo[i][j] != -1) return memo[i][j];
+            int &res = memo[i][j];
+            if (j == 1) return res = g[0][i - 1];
+            // 枚举最后一段的左端点
+            for (int L = j; L <= i; ++L) {
+                res = min(res, dfs(L - 1, j - 1) + g[L - 1][i - 1]);
             }
-        }
-        return -1;
+            return res;
+        };
+        return dfs(n, k);
     }
 };
-
 int main() {
     // Solotion so;
     return 0;
