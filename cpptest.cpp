@@ -73,31 +73,9 @@ static constexpr long long mod = 1e9 + 7;
 using LL = long long;
 class Solution {
 public:
-    int palindromePartition(string s, int k) {
-        int n = s.size();
-        int g[110][110]; memset(g, 0, sizeof(g)); // g[i][j]代表修改[i: j]的开销
-        auto calc = [&](int i, int j) -> int {
-            int res = 0;
-            for (int l = i, r = j; l < r; ++l, --r) if (s[l] != s[r]) res += 1;
-            return res;
-        };
-        for (int i = 0; i < n; ++i) {
-            g[i][i] = 0;
-            for (int j = i + 1; j < n; ++j) g[i][j] = calc(i, j);
-        }
-        vector memo(n + 1, vector<int>(k + 1, 1e9));
-        // dfs(i, j)代表s的前i个字符分成j组的子问题
-        function<int(int, int)> dfs = [&](int i, int j) -> int {
-            if (memo[i][j] != -1) return memo[i][j];
-            int &res = memo[i][j];
-            if (j == 1) return res = g[0][i - 1];
-            // 枚举最后一段的左端点
-            for (int L = j; L <= i; ++L) {
-                res = min(res, dfs(L - 1, j - 1) + g[L - 1][i - 1]);
-            }
-            return res;
-        };
-        return dfs(n, k);
+    int minSessions(vector<int>& tasks, int st) {
+        int ans = 1e9, n = tasks.size();
+        
     }
 };
 int main() {
