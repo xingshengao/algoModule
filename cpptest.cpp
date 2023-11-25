@@ -71,13 +71,7 @@ typedef pair<int, int> PII;
 vector<PII> dirs = {{0, 1}, {1, 0}, {0, -1}, {-1, 0}};
 static constexpr long long mod = 1e9 + 7;
 using LL = long long;
-class Solution {
-public:
-    int minSessions(vector<int>& tasks, int st) {
-        int ans = 1e9, n = tasks.size();
-        
-    }
-};
+
 int main() {
     // Solotion so;
     return 0;

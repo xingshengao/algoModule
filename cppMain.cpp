@@ -55,21 +55,20 @@ void mydebug(const char* format, Head H, Tail... T) {
 #define debug(...) mydebug(#__VA_ARGS__, __VA_ARGS__)
 
 static constexpr long long mod = 998244353;
+
 void solve() {
-    int n, m;  // m个数对, 都在[1: n], 能不能找到
-    cin >> n >> m;
-    vector<array<int, 2>> vec(m);
-    for (int i = 0; i < m; ++i) cin >> vec[i][0] >> vec[i][1];
-    function<bool(int, int)> f = [&](int x, int y) -> bool {
-        for (int i = 0; i < m; ++i) {
-            if (vec[i][0] == x || vec[i][0] == y || vec[i][1] == x || vec[i][1] == y) continue;
-            if (y > 0) return false;
-            return f(x, vec[i][0]) || f(x, vec[i][1]);
-        }
-        return true;
-    };
-    if (f(vec[0][0], 0) || f(vec[0][1], 0)) cout << "YES" << endl;
-    else cout << "NO" << endl;
+    int a, b, x;
+    cin >> a >> b >> x;
+    int g = gcd(a, b);
+    if (g == 1) {
+        cout << x << endl;
+        return;
+    }
+    int m = x / g * g, n = m + g;
+    if (x - m <= n - x)
+        cout << m;
+    else
+        cout << n;
 }
 signed main() {
     std::ios::sync_with_stdio(0), std::cout.tie(0), std::cin.tie(0);
