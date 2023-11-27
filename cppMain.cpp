@@ -55,14 +55,7 @@ void mydebug(const char* format, Head H, Tail... T) {
 #define debug(...) mydebug(#__VA_ARGS__, __VA_ARGS__)
 
 static constexpr long long mod = 998244353;
-int mypow(int x, int n) {
-    int res = 1;
-    for (; n; n /= 2) {
-        if (n & 1) res = res * x;
-        x = x * x;
-    }
-    return res;
-}
+
 void solve() {}
 signed main() {
     std::ios::sync_with_stdio(0), std::cout.tie(0), std::cin.tie(0);
