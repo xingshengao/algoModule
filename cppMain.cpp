@@ -56,10 +56,41 @@ void mydebug(const char* format, Head H, Tail... T) {
 
 static constexpr long long mod = 998244353;
 
-void solve() {}
+void solve() {
+    std::string s;
+    cin >> s;
+    int n = s.size();
+    int cnt1 = 0;
+    for (int i = 0; i < n; ++i) {
+        if (s[i] == '1') cnt1 += 1;
+    }
+    if (cnt1 == 0) {
+        cout << s << endl;
+        return;
+    }
+    string t;
+    int idx = -1;
+    for (int i = 0; i < n; ++i) {
+        if (s[i] != '1') t += s[i];
+    }
+    for (int i = 0; i < t.size(); ++i) {
+        if (t[i] == '2') {
+            idx = i;
+            break;
+        }
+    }
+    if (idx == -1) {  // 说明没有2
+        cout << t + string(cnt1, '1') << endl;
+        return;
+    } else if (idx == 0) {  // 说明第一个是2
+        cout << string(cnt1, '1') + t << endl;
+        return;
+    }
+    cout << t.substr(0, idx) + string(cnt1, '1') + t.substr(idx);
+}
 signed main() {
     std::ios::sync_with_stdio(0), std::cout.tie(0), std::cin.tie(0);
-    int T = 1;
+    int T = 2;
     // cin >> T;
     while (T--) {
         solve();
