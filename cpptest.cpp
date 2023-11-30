@@ -72,6 +72,35 @@ vector<PII> dirs = {{0, 1}, {1, 0}, {0, -1}, {-1, 0}};
 static constexpr long long mod = 1e9 + 7;
 using LL = long long;
 
+class Solution {
+   public:
+    int minSubarray(vector<int>& nums, int p) {
+        int n = nums.size();
+        map<int, int> mp;  // 存某个余数的前缀和最新出现的下标
+        vector<LL> ps(n + 1);
+        for (LL i = 0; i < n; ++i) ps[i + 1] = ps[i] + nums[i];
+        if (ps[n] % p == 0) return 0;
+        int m = ps[n] % p;
+        LL ans = 1e9;
+        mp[0] = -1;
+        for (LL i = 0; i < n; ++i) {
+            LL sum = ps[i + 1];  // [0: i]的和
+            int r = sum % p;
+            int target = ((r + m) % p + p) % p;
+            if (i < n - 1) {
+                if (mp.find(target) != mp.end()) {
+                    ans = min(ans, i - mp[target] + 1);
+                }
+            } else if (i == n - 1) {
+                if (mp.find(target) != mp.end() && mp[target] != -1) {
+                    ans = min(ans, i - mp[target] + 1);
+                }
+            }
+            mp[r] = i;
+        }
+        return ans == 1e9 ? -1 : ans;
+    }
+};
 int main() {
     // Solotion so;
     return 0;
