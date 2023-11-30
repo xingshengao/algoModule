@@ -71,52 +71,7 @@ typedef pair<int, int> PII;
 vector<PII> dirs = {{0, 1}, {1, 0}, {0, -1}, {-1, 0}};
 static constexpr long long mod = 1e9 + 7;
 using LL = long long;
-struct DSU {
-    vector<int> f, siz;
-    int cnt;
-    DSU() {}
-    DSU(int n) { init(n); }
-    void init(int n) {
-        cnt = n;
-        f.resize(n);
-        iota(f.begin(), f.end(), 0);
-        siz.assign(n, 1);
-    }
-    int find(int x) {
-        while (x != f[x]) {
-            x = f[x] = f[f[x]];
-        }
-        return x;
-    }
-    bool same(int x, int y) { return find(x) == find(y); }
-    bool merge(int x, int y) {
-        x = find(x);
-        y = find(y);
-        if (x == y) {
-            return false;
-        }
-        cnt -= 1;
-        siz[x] += siz[y];
-        f[y] = x;
-        return true;
-    }
-    int size(int x) { return siz[find(x)]; }
-};
-class Solution {
-public:
-    int removeStones(vector<vector<int>>& stones) {
-        int n = stones.size();
-        DSU dsu(n);
-        for (int i = 0; i < n; ++i) {
-            int xi = stones[i][0], yi = stones[i][1];
-            for (int j = 0; j < n; ++j) {
-                int xj = stones[i][0], yj = stones[i][1];
-                if (xi == yi || xj == yj) dsu.merge(i, j);
-            }
-        }
-        return n - dsu.cnt;
-    }
-};
+
 int main() {
     // Solotion so;
     return 0;
