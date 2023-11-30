@@ -71,41 +71,53 @@ typedef pair<int, int> PII;
 vector<PII> dirs = {{0, 1}, {1, 0}, {0, -1}, {-1, 0}};
 static constexpr long long mod = 1e9 + 7;
 using LL = long long;
-class Solution {
-   public:
-    int jobScheduling(vector<int>& startTime, vector<int>& endTime, vector<int>& profit) {
-        int n = startTime.size();
-        vector<array<int, 3>> vec(n);
-        for (int i = 0; i < n; ++i) {
-            vec[i] = {startTime[i], endTime[i], profit[i]};
+struct DSU {
+    vector<int> f, siz;
+    int cnt;
+    DSU() {}
+    DSU(int n) { init(n); }
+    void init(int n) {
+        cnt = n;
+        f.resize(n);
+        iota(f.begin(), f.end(), 0);
+        siz.assign(n, 1);
+    }
+    int find(int x) {
+        while (x != f[x]) {
+            x = f[x] = f[f[x]];
         }
-        // 按照结束时间升序排序
-        sort(vec.begin(), vec.end(), [&](auto& a, auto& b) { return a[1] < b[1]; });
-        vector<int> dp(n + 1, -1);  // dp[i]表示前i个工作的最大报酬
-        function<int(int)> dfs = [&](int i) -> int {
-            int& res = dp[i];
-            if (res != -1) return res;
-            if (i == 0) return res = 0;
-            int up = vec[i - 1][0];  // 第i个的开始时间
-            int l = 0, r = i - 1;
-            while (l < r) {
-                int mid = l + (r - l + 1 >> 1);
-                if (vec[mid][1] <= up)
-                    l = mid;
-                else
-                    r = mid - 1;
+        return x;
+    }
+    bool same(int x, int y) { return find(x) == find(y); }
+    bool merge(int x, int y) {
+        x = find(x);
+        y = find(y);
+        if (x == y) {
+            return false;
+        }
+        cnt -= 1;
+        siz[x] += siz[y];
+        f[y] = x;
+        return true;
+    }
+    int size(int x) { return siz[find(x)]; }
+};
+class Solution {
+public:
+    int removeStones(vector<vector<int>>& stones) {
+        int n = stones.size();
+        DSU dsu(n);
+        for (int i = 0; i < n; ++i) {
+            int xi = stones[i][0], yi = stones[i][1];
+            for (int j = 0; j < n; ++j) {
+                int xj = stones[i][0], yj = stones[i][1];
+                if (xi == yi || xj == yj) dsu.merge(i, j);
             }
-            res = max(dfs(i - 1), vec[i - 1][2]);
-            if (vec[r][1] <= up) res = max(res, dfs(r + 1) + vec[i - 1][2]);
-            return res;
-        };
-        for (int i = 0; i <= n; ++i) dfs(i);
-        debug(dp);
-        return dfs(n);
+        }
+        return n - dsu.cnt;
     }
 };
 int main() {
     // Solotion so;
-
     return 0;
 }
