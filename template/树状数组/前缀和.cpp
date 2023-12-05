@@ -3,7 +3,7 @@ using namespace std;
 typedef long long LL;
 class Solution {
 public:
-    LL tr[100010]{0}; // 维护前缀和
+    LL tr[100010]{0}; // 维护前缀和.
     LL lowbit(LL x) {return x & (-x);}
     void add(LL x, LL v) {
         for (; x < 100010; x += lowbit(x)) tr[x] += v;
