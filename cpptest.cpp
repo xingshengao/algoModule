@@ -6,8 +6,7 @@ const double PI = acos(-1);
 #define all(c) c.begin(), c.end()
 typedef pair<long long, long long> PLL;
 typedef pair<int, int> PII;
-int dx[4] = {0, 1, 0, -1};
-int dy[4] = {1, 0, -1, 0};
+int dx[4] = {0, 1, 0, -1}, dy[4] = {1, 0, -1, 0};
 vector<PII> dirs8 = {{-1, -1}, {-1, 1}, {-1, 0}, {0, 1}, {0, -1}, {1, 1}, {1, -1}, {1, 0}};
 string to_string(string s) { return '"' + s + '"'; }
 
@@ -72,9 +71,10 @@ vector<PII> dirs = {{0, 1}, {1, 0}, {0, -1}, {-1, 0}};
 static constexpr long long mod = 1e9 + 7;
 using LL = long long;
 class Solution {
-public:
-    int minCost(vector<vector<int>>& grid) {
-
+   public:
+    int minCost(vector<vector<int>>& g) {
+        int m = g.size(), n = g[0].size();
+               
     }
 };
 int main() {
