@@ -55,42 +55,42 @@ void mydebug(const char* format, Head H, Tail... T) {
 #define debug(...) mydebug(#__VA_ARGS__, __VA_ARGS__)
 
 static constexpr long long mod = 998244353;
+namespace Comb {
+constexpr LL N = 1e5 + 50;
+// constexpr LL mod = 1e9 + 7;
+LL frac[N];  // 阶乘
 
+void init() {
+    frac[0] = frac[1] = 1;
+    for (LL i = 2; i < N; ++i) frac[i] = frac[i - 1] * i % mod;
+}
+
+LL fpow(LL x, LL exp) {  // 快速幂
+    LL res = 1;
+    for (; exp; exp /= 2) {
+        if (exp & 1) res = res * x % mod;
+        x = x * x % mod;
+    }
+    return res;
+}
+
+/* C(n, k) means select k from n. */
+LL C(LL n, LL k) {
+    LL upper = frac[n];
+    LL lower = (fpow(frac[k], mod - 2) * fpow(frac[n - k], mod - 2)) % mod;  // 逆元
+
+    return (upper * lower) % mod;
+}
+};  // namespace Comb
+using namespace Comb;
 void solve() {
-    std::string s;
-    cin >> s;
-    int n = s.size();
-    int cnt1 = 0;
-    for (int i = 0; i < n; ++i) {
-        if (s[i] == '1') cnt1 += 1;
-    }
-    if (cnt1 == 0) {
-        cout << s << endl;
-        return;
-    }
-    string t;
-    int idx = -1;
-    for (int i = 0; i < n; ++i) {
-        if (s[i] != '1') t += s[i];
-    }
-    for (int i = 0; i < t.size(); ++i) {
-        if (t[i] == '2') {
-            idx = i;
-            break;
-        }
-    }
-    if (idx == -1) {  // 说明没有2
-        cout << t + string(cnt1, '1') << endl;
-        return;
-    } else if (idx == 0) {  // 说明第一个是2
-        cout << string(cnt1, '1') + t << endl;
-        return;
-    }
-    cout << t.substr(0, idx) + string(cnt1, '1') + t.substr(idx);
+    int n, m;
+    cin >> n >> m;
+    cout << fpow(fpow(2, m) - 1, n) % mod << endl;
 }
 signed main() {
     std::ios::sync_with_stdio(0), std::cout.tie(0), std::cin.tie(0);
-    int T = 2;
+    int T = 1;
     // cin >> T;
     while (T--) {
         solve();
