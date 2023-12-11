@@ -6,7 +6,6 @@ const double PI = acos(-1);
 #define all(c) c.begin(), c.end()
 typedef pair<long long, long long> PLL;
 typedef pair<int, int> PII;
-int dx[4] = {0, 1, 0, -1}, dy[4] = {1, 0, -1, 0};
 vector<PII> dirs8 = {{-1, -1}, {-1, 1}, {-1, 0}, {0, 1}, {0, -1}, {1, 1}, {1, -1}, {1, 0}};
 string to_string(string s) { return '"' + s + '"'; }
 
@@ -54,29 +53,19 @@ void mydebug(const char* format, Head H, Tail... T) {
     mydebug(format + 1, T...);
 }
 #define debug(...) mydebug(#__VA_ARGS__, __VA_ARGS__)
-// struct ListNode {
-//     int val;
-//     ListNode* next;
-//     ListNode(int x) : val(x), next(NULL) {}
-// };
-
-// struct TreeNode {
-//     int val;
-//     TreeNode* left;
-//     TreeNode* right;
-//     TreeNode(int x) : val(x), left(NULL), right(NULL) {}
-// };
+LL fpow(LL x, LL exp) {  // 快速幂
+    LL res = 1;
+    for (; exp; exp /= 2) {
+        if (exp & 1) res = res * x % mod;
+        x = x * x % mod;
+    }
+    return res;
+}
+int dx[4] = {0, 1, 0, -1}, dy[4] = {1, 0, -1, 0};
 typedef pair<int, int> PII;
-vector<PII> dirs = {{0, 1}, {1, 0}, {0, -1}, {-1, 0}};
 static constexpr long long mod = 1e9 + 7;
 using LL = long long;
-class Solution {
-   public:
-    int minCost(vector<vector<int>>& g) {
-        int m = g.size(), n = g[0].size();
-               
-    }
-};
+
 int main() {
     // Solotion so;
     return 0;
