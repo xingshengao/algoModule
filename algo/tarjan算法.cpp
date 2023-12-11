@@ -1,6 +1,6 @@
 #include <bits/stdc++.h>
 using namespace std;
-// 通过tarjan算法找到无向图中的强连通分量
+// 通过tarjan算法找到无向图中的强连通分量, 1211
 struct Tarjan {
    public:
     int time;                 // 时间戳
