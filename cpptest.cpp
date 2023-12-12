@@ -31,9 +31,7 @@ string to_string(A v) {
     bool first = true;
     string res = "{";
     for (const auto& x : v) {
-        if (!first) {
-            res += ", ";
-        }
+        if (!first) res += ", ";
         first = false;
         res += to_string(x);
     }
@@ -66,35 +64,7 @@ int dx[4] = {0, 1, 0, -1}, dy[4] = {1, 0, -1, 0};
 typedef pair<int, int> PII;
 static constexpr long long mod = 1e9 + 7;
 using LL = long long;
-class Solution {
-   public:
-    int maxPerformance(int n, vector<int>& s, vector<int>& e, int k) {  // 速度, 效率
-        LL ans = 0;
-        typedef pair<LL, LL> PLL;
-        // 优先队列
-        priority_queue<PLL, vector<PLL>, greater<PLL>> pq;  // 小顶堆, 维护最大的k个速度
-        // 效率降序排序
-        vector<PLL> vec(n);
-        for (int i = 0; i < n; ++i) {
-            vec[i] = PLL(s[i], e[i]);
-        }
-        LL sum = 0;  // 速度和
-        sort(vec.begin(), vec.end(), [&](const auto& a, const auto& b) { return a.second > b.second; });
-        for (int i = 0; i < n; ++i) {
-            // 当前节点为最小效率
-            pq.push(vec[i]);
-            sum += vec[i].first;
-            if (pq.size() > k) {
-                sum -= pq.top().first;
-                pq.pop();
-            }
-            if (pq.size() <= k) {
-                ans = max(ans, sum * vec[i].second);
-            }
-        }
-        return ans;
-    }
-};
+
 int main() {
     // Solotion so;
     return 0;
