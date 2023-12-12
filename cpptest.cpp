@@ -74,7 +74,7 @@ static constexpr long long mod = 1e9 + 7;
 using LL = long long;
 class Solution {
    public:
-    int countKSubsequencesWithMaxBeauty(string s, int k) {}
+    long long minimumMoney(vector<vector<int>>& transactions) {}
 };
 int main() {
     // Solotion so;
