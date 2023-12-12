@@ -55,7 +55,44 @@ void mydebug(const char* format, Head H, Tail... T) {
 #define debug(...) mydebug(#__VA_ARGS__, __VA_ARGS__)
 
 static constexpr long long mod = 998244353;
-void solve() {}
+void solve() {
+    int n;
+    cin >> n;
+    vector<int> a(n);
+    for (int i = 0; i < n; ++i) cin >> a[i];
+    set<int> S(a.begin(), a.end());
+    if (S.size() == n) {
+        cout << -1 << endl;
+        return;
+    }
+    vector<vector<int>> ans;
+    int i = 0;
+    S.clear();
+    while (i < n) {
+        S.clear();
+        int j = i;
+        while (j < n && S.size() == j - i) {
+            S.insert(a[j]);
+            j++;
+        }
+        //[i : j - 1]
+        ans.push_back({i, j - 1});
+        i = j;
+    }
+    int siz = ans.size();
+    vector<int> tmp = ans.back();
+    set<int> SS;
+    for (int k = tmp[0]; k <= tmp[1]; ++k) SS.insert(a[k]);
+    if (SS.size() == tmp[1] - tmp[0] + 1) {
+        ans[siz - 2][1] = tmp[1];
+        ans.pop_back();
+        siz -= 1;
+    }
+    cout << siz << endl;
+    for (int i = 0; i < siz; ++i) {
+        cout << ans[i][0] + 1 << " " << ans[i][1] + 1 << endl;
+    }
+}
 signed main() {
     std::ios::sync_with_stdio(0), std::cout.tie(0), std::cin.tie(0);
     int T = 1;
