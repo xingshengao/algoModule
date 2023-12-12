@@ -15,6 +15,14 @@ long long fpow(long long x, long long exp, long long mod) {  // 快速幂
     }
     return res;
 }
+long long fpow(long long x, long long exp) {  // 快速幂
+    long long res = 1;
+    for (; exp; exp /= 2) {
+        if (exp & 1) res = res * x;
+        x = x * x;
+    }
+    return res;
+}
 string to_string(string s) { return '"' + s + '"'; }
 
 string to_string(const char* s) { return to_string((string)s); }
@@ -64,10 +72,11 @@ int dx[4] = {0, 1, 0, -1}, dy[4] = {1, 0, -1, 0};
 typedef pair<int, int> PII;
 static constexpr long long mod = 1e9 + 7;
 using LL = long long;
-
+class Solution {
+   public:
+    int countKSubsequencesWithMaxBeauty(string s, int k) {}
+};
 int main() {
     // Solotion so;
-    vector<int> a = {1, 2, 3, 4, 566};
-    debug(a);
     return 0;
 }
