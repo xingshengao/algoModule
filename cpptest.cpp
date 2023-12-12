@@ -7,7 +7,7 @@ const double PI = acos(-1);
 typedef pair<long long, long long> PLL;
 typedef pair<int, int> PII;
 vector<pair<int, int>> dirs8 = {{-1, -1}, {-1, 1}, {-1, 0}, {0, 1}, {0, -1}, {1, 1}, {1, -1}, {1, 0}};
-long long fpow(long long x, long long exp) {  // 快速幂
+long long fpow(long long x, long long exp, long long mod) {  // 快速幂
     long long res = 1;
     for (; exp; exp /= 2) {
         if (exp & 1) res = res * x % mod;
@@ -67,5 +67,7 @@ using LL = long long;
 
 int main() {
     // Solotion so;
+    vector<int> a = {1, 2, 3, 4, 566};
+    debug(a);
     return 0;
 }
