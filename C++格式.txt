@@ -1,0 +1,1 @@
+{ BasedOnStyle: Chromium, IndentWidth: 4,  ColumnLimit: 150,  AllowShortIfStatementsOnASingleLine:	true,  AllowShortLoopsOnASingleLine:	true,  AllowShortFunctionsOnASingleLine: true, AfterNamespace:	true}
