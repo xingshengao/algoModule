@@ -5,10 +5,9 @@ using LL = long long;
 typedef pair<LL, LL> PLL;
 class Solution {
    public:
-    LL start;  // 求到谁的最短路
-    LL N;      // N个点, 编号0~N-1
-    vector<LL> dis;
-    vector<LL> vis;
+    LL N;                   // N个点, 编号0~N-1
+    vector<LL> dis;         // 最短路径
+    vector<LL> vis;         // visit数组
     vector<vector<PLL>> g;  // 建图, g[u]存(v, w)
     void dijkstra(LL start) {
         priority_queue<PLL, vector<PLL>, greater<PLL>> pq;  // 小顶堆
