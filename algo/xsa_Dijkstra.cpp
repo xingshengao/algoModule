@@ -5,7 +5,7 @@ using LL = long long;
 typedef pair<LL, LL> PLL;
 class Solution {
    public:
-    LL N;                   // N个点, 编号0~N-1
+    LL N;                   // N个点, 编号是0~N-1
     vector<LL> dis;         // 最短路径
     vector<LL> vis;         // visit数组
     vector<vector<PLL>> g;  // 建图, g[u]存(v, w)
