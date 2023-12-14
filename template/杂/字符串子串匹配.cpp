@@ -13,7 +13,6 @@ void calc1(string s) {
         }
     }
 }
-
 // 预处理两个子串[0: i]和[0: j]最长公共前缀
 void calc2(string s) {
     int n = s.size();
