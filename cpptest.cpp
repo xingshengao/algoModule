@@ -92,8 +92,10 @@ class Solution {
         memset(lcp, 0, sizeof lcp);
         for (int j = n - 1; j >= 0; --j) {
             for (int i = n - 1; i >= 0; --i) {
-                if (s[i] == s[j]) lcp[i][j] = 1;
-                if ()
+                if (s[i] == s[j]) {
+                    lcp[i][j] = 1;
+                    if (i + 1 < n and j + 1 < n) lcp[i][j] += lcp[i + 1][j + 1];
+                }
             }
         }
     }
