@@ -84,12 +84,7 @@ int dx[4] = {0, 1, 0, -1}, dy[4] = {1, 0, -1, 0};
 typedef pair<int, int> PII;
 static constexpr long long mod = 1e9 + 7;
 using LL = long long;
-class Solution {
-   public:
-    int countPyramids(vector<vector<int>>& grid) {
-        
-    }
-};
+
 int main() {
     // Solotion so;
     return 0;
