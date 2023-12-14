@@ -84,7 +84,20 @@ int dx[4] = {0, 1, 0, -1}, dy[4] = {1, 0, -1, 0};
 typedef pair<int, int> PII;
 static constexpr long long mod = 1e9 + 7;
 using LL = long long;
-
+class Solution {
+   public:
+    int deleteString(string s) {
+        int n = s.size();
+        int lcp[n][n];
+        memset(lcp, 0, sizeof lcp);
+        for (int j = n - 1; j >= 0; --j) {
+            for (int i = n - 1; i >= 0; --i) {
+                if (s[i] == s[j]) lcp[i][j] = 1;
+                if ()
+            }
+        }
+    }
+};
 int main() {
     // Solotion so;
     return 0;
