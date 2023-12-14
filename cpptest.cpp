@@ -86,29 +86,8 @@ static constexpr long long mod = 1e9 + 7;
 using LL = long long;
 class Solution {
    public:
-    int deleteString(string s) {
-        int n = s.size();
-        vector lcp(n, vector<int>(n, 0));
-        for (int j = n - 1; j >= 0; --j) {
-            for (int i = n - 1; i >= 0; --i) {
-                if (s[i] == s[j]) {
-                    lcp[i][j] = 1;
-                    if (i + 1 < n and j + 1 < n) lcp[i][j] += lcp[i + 1][j + 1];
-                }
-            }
-        }
-        vector<int> dp(n + 1, -1);
-        function<int(int)> dfs = [&](int i) -> int {
-            if (i == n - 1) return 1;
-            int& res = dp[i];
-            if (res != -1) return res;
-            res = 1;
-            for (int j = 1; j + 2 * i <= n; ++j) {
-                if (lcp[i][i + 1] >= j) res = max(res, dfs(i + j) + 1);
-            }
-            return res;
-        };
-        return dfs(0);
+    int countPyramids(vector<vector<int>>& grid) {
+        
     }
 };
 int main() {
