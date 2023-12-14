@@ -6,8 +6,10 @@ void calc1(string s) {
     vector lcp(n, vector<int>(n, 0));
     for (int i = n - 1; i >= 0; --i) {
         for (int j = n - 1; j >= 0; --j) {
-            if (s[i] == s[j]) lcp[i][j] = 1;
-            if (i + 1 < n && j + 1 < n) lcp[i][j] += lcp[i + 1][j + 1];
+            if (s[i] == s[j]) {
+                lcp[i][j] = 1;
+                if (i + 1 < n && j + 1 < n) lcp[i][j] += lcp[i + 1][j + 1];
+            }
         }
     }
 }
@@ -18,8 +20,10 @@ void calc2(string s) {
     vector lcp(n, vector<int>(n, 0));
     for (int i = 0; i < n; ++i) {
         for (int j = 0; j < n; ++j) {
-            if (s[i] == s[j]) lcp[i][j] = 1;
-            if (i - 1 >= 0 && j - 1 >= 0) lcp[i][j] += lcp[i - 1][j - 1];
+            if (s[i] == s[j]) {
+                lcp[i][j] = 1;
+                if (i - 1 >= 0 && j - 1 >= 0) lcp[i][j] += lcp[i - 1][j - 1];
+            }
         }
     }
 }
