@@ -1,9 +1,5 @@
 #include <bits/stdc++.h>
-using std::cin;
-using std::cout;
-using std::endl;
-using std::vector;
-using std::array;
+using namespace std;
 /**
  * 树上倍增算法: 预处理每个节点的第2^i个祖先节点, 任意k可分解为不同的二进制次幂, 快速到达第k个祖先节点
  * 在构造函数中, 初始化每个节点x的第2^i个祖先节点, 记作pa[x][i], 若第2^i个祖先节点不存在则pa[x][i]=-1
