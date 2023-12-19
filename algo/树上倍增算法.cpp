@@ -43,7 +43,7 @@ class TreeAncestor {
     // 另一种写法，不断去掉 k 的最低位的 1
     int getKthAncestor2(int node, int k) {
         for (; k && node != -1; k &= k - 1)  // 也可以写成 ~node
-            node = p    a[node][__builtin_ctz(k)];
+            node = pa[node][__builtin_ctz(k)];
         return node;
     }
 
