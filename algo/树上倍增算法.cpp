@@ -10,7 +10,6 @@ using namespace std;
 // 32 - __builtin_clz(int)二进制i长度数, 64 - __builtin_clzll(LL)
 // clz本身是返回括号内数的二进制表示数前导0的个数
 // __builtin_ctz(int) 返回括号内数的二进制表示数末尾0的个数, 集合中的最小元素, __builtin_ctzll()
-
 class TreeAncestor {
    public:
     vector<vector<int>> pa;
@@ -39,7 +38,6 @@ class TreeAncestor {
         }
         return node;
     }
-
     // 另一种写法，不断去掉 k 的最低位的 1
     int getKthAncestor2(int node, int k) {
         for (; k && node != -1; k &= k - 1)  // 也可以写成 ~node
