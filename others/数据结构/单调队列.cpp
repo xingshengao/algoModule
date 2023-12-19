@@ -1,5 +1,7 @@
 // https://leetcode.cn/problems/sliding-window-maximum/
+#include <bits/stdc++.h>
 
+using namespace std;
 vector<int> maxSlidingWindow(vector<int>& nums, int k) {
     int n = nums.size();
     deque<int> q;
