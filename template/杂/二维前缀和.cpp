@@ -4,8 +4,8 @@ using LL = long long;
 class Solution {
    public:
     void f(vector<vector<int>>& g) {
-        int m = g.size(), n = g[0].size();
         // 预处理二维前缀和
+        int m = g.size(), n = g[0].size();
         vector s(m + 1, vector<int>(n + 1, 0));
         for (int i = 0; i < m; ++i) {
             for (int j = 0; j < n; ++j) {
