@@ -3,7 +3,7 @@ using namespace std;
 using LL = long long;
 class Solution {
    public:
-    int ways(vector<vector<int>>& g) {
+    void f(vector<vector<int>>& g) {
         int m = g.size(), n = g[0].size();
         // 预处理二维前缀和
         vector s(m + 1, vector<int>(n + 1, 0));
