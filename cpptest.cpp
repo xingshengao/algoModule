@@ -23,11 +23,17 @@ long long fpow(long long x, long long exp) {  // 快速幂
     }
     return res;
 }
-string to_string(string s) { return '"' + s + '"'; }
+string to_string(string s) {
+    return '"' + s + '"';
+}
 
-string to_string(const char* s) { return to_string((string)s); }
+string to_string(const char* s) {
+    return to_string((string)s);
+}
 
-string to_string(bool b) { return (b ? "true" : "false"); }
+string to_string(bool b) {
+    return (b ? "true" : "false");
+}
 
 template <typename A, typename B>
 string to_string(pair<A, B> p) {
@@ -47,7 +53,9 @@ string to_string(A v) {
     return res;
 }
 
-void debug_out() { cout << endl; }
+void debug_out() {
+    cout << endl;
+}
 
 template <typename Head, typename... Tail>
 void debug_out(Head H, Tail... T) {
@@ -84,12 +92,7 @@ int dx[4] = {0, 1, 0, -1}, dy[4] = {1, 0, -1, 0};
 typedef pair<int, int> PII;
 static constexpr long long mod = 1e9 + 7;
 using LL = long long;
-class Solution {
-public:
-    int countSpecialSubsequences(vector<int>& nums) {
 
-    }
-};
 int main() {
     // Solotion so;
     return 0;

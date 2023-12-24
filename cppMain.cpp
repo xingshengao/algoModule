@@ -25,11 +25,17 @@ long long fpow(long long x, long long exp) {  // 快速幂
     }
     return res;
 }
-string to_string(string s) { return '"' + s + '"'; }
+string to_string(string s) {
+    return '"' + s + '"';
+}
 
-string to_string(const char* s) { return to_string((string)s); }
+string to_string(const char* s) {
+    return to_string((string)s);
+}
 
-string to_string(bool b) { return (b ? "true" : "false"); }
+string to_string(bool b) {
+    return (b ? "true" : "false");
+}
 
 template <typename A, typename B>
 string to_string(pair<A, B> p) {
@@ -49,7 +55,9 @@ string to_string(A v) {
     return res;
 }
 
-void debug_out() { cout << endl; }
+void debug_out() {
+    cout << endl;
+}
 
 template <typename Head, typename... Tail>
 void debug_out(Head H, Tail... T) {
@@ -70,9 +78,28 @@ void mydebug(const char* format, Head H, Tail... T) {
 }
 #define debug(...) mydebug(#__VA_ARGS__, __VA_ARGS__)
 
-static constexpr long long mod = 998244353;
-
-void solve() {}
+// static constexpr long long mod = 998244353;
+static constexpr long long mod = 1000000007;
+void solve() {
+    int n;
+    cin >> n;
+    int a[n];
+    for (int i = 0; i < n; ++i) cin >> a[i];
+    int ans = 0;
+    // 从后向前, 能砍则砍
+    for (int i = n - 1; i >= 0; --i) {
+        if (i - 2 >= 0) {
+            int x = a[i] / 3, y = a[i - 1] / 2, z = a[i - 2];
+            int t = min(x, min(y, z));
+            ans += t * 5;
+            a[i] -= 3 * t;
+            a[i - 1] -= 2 * t;
+            a[i - 2] -= t;
+        }
+        if (a[i] > 0) ans += a[i];
+    }
+    cout << ans << endl;
+}
 signed main() {
     std::ios::sync_with_stdio(0), std::cout.tie(0), std::cin.tie(0);
     int T = 1;
