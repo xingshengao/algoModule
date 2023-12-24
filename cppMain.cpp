@@ -78,6 +78,7 @@ void mydebug(const char* format, Head H, Tail... T) {
 }
 #define debug(...) mydebug(#__VA_ARGS__, __VA_ARGS__)
 
+<<<<<<< HEAD
 // static constexpr long long mod = 998244353;
 static constexpr long long mod = 1000000007;
 void solve() {
@@ -99,6 +100,12 @@ void solve() {
         if (a[i] > 0) ans += a[i];
     }
     cout << ans << endl;
+=======
+static constexpr long long mod = 998244353;
+
+void solve() {
+    cout << 1;
+>>>>>>> a7d07366f3dcf8599d5feebefa4754c81c7fb0de
 }
 signed main() {
     std::ios::sync_with_stdio(0), std::cout.tie(0), std::cin.tie(0);
