@@ -92,47 +92,7 @@ int dx[4] = {0, 1, 0, -1}, dy[4] = {1, 0, -1, 0};
 typedef pair<int, int> PII;
 static constexpr long long mod = 1e9 + 7;
 using LL = long long;
-class Solution {
-   public:
-    int ways(vector<string>& g, int k) {
-        int m = g.size(), n = g[0].size();
-        // 预处理二维前缀和
-        vector s(m + 1, vector<int>(n + 1, 0));
-        for (int i = 0; i < m; ++i) {
-            for (int j = 0; j < n; ++j) {
-                s[i + 1][j + 1] = s[i + 1][j] + s[i][j + 1] - s[i][j] + (g[i][j] == 'A');
-            }
-        }
-        // 返回[1, 2)的区域和, 左闭右开
-        auto query = [&](int r1, int c1, int r2, int c2) -> int { return s[r2][c2] - s[r2][c1] - s[r1][c2] + s[r1][c1]; };
-        vector dp(k + 1, vector<vector<LL>>(m + 1, vector<LL>(n + 1, -1)));
-        // dfs(c, i, j)表示把左上角为ij切c到到的合法方法数量
-        function<LL(LL, LL, LL)> dfs = [&](LL c, LL i, LL j) -> LL {
-            if (c == 0) {
-                return query(i, j, m, n) > 0 ? 1 : 0;
-            }
-            LL& res = dp[c][i][j];
-            if (res != -1) return res;
-            res = 0;
-            // 枚举垂直切的位置
-            for (LL j2 = j + 1; j2 < n; ++j2) {
-                if (query(i, j, m, j2)) {
-                    res += dfs(c - 1, i, j2);
-                    res %= mod;
-                }
-            }
-            // 枚举水平切的位置
-            for (LL i2 = i + 1; i2 < m; ++i2) {
-                if (query(i, j, i2, n)) {
-                    res += dfs(c - 1, i2, j);
-                    res %= mod;
-                }
-            }
-            return res;
-        };
-        return dfs(k - 1, 0, 0);
-    }
-};
+
 int main() {
     // Solotion so;
     return 0;
