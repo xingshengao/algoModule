@@ -22,14 +22,15 @@ void solve() {
         ans.erase(unique(ans.begin(), ans.end()), ans.end());
         return ans;
     };
-    vector<int> X = Uni(XX);
+    // 要进行离散化的数组, 可以是x可以是y
+    vector<int> A = Uni(XX);
     // 离散化
     map<int, int> mp;
-    for (int i = 0; i < X.size(); ++i) {
-        mp[X[i]] = i + 1;
+    for (int i = 0; i < A.size(); ++i) {
+        mp[A[i]] = i + 1;
     }
     // 树状数组板子
-    vector<int> tr(X.size() + 1, 0);
+    vector<int> tr(A.size() + 1, 0);
     auto low_bit = [&](int x) { return x & (-x); };
     auto query = [&](int pos) {
         int sum = 0;
@@ -53,4 +54,8 @@ void solve() {
         ans += query(x_id - 1);  // 比其小的前缀和
     }
     cout << ans << endl;
+}
+int main() {
+    solve();
+    return 0;
 }
