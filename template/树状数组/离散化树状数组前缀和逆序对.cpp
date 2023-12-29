@@ -28,11 +28,6 @@ void solve() {
     for (int i = 0; i < X.size(); ++i) {
         mp[X[i]] = i + 1;
     }
-    // 按照y降序排序
-    sort(vec.begin(), vec.end(), [](const PII& a, const PII& b) {
-        if (a.second == b.second) return a.first < b.first;
-        return a.second > b.second;
-    });
     // 树状数组板子
     vector<int> tr(X.size() + 1, 0);
     auto low_bit = [&](int x) { return x & (-x); };
@@ -44,7 +39,11 @@ void solve() {
     auto update = [&](int pos, int v) {
         for (; pos < tr.size(); pos += low_bit(pos)) tr[pos] += v;
     };
-
+    // 按照y降序排序
+    sort(vec.begin(), vec.end(), [](const PII& a, const PII& b) {
+        if (a.second == b.second) return a.first < b.first;
+        return a.second > b.second;
+    });
     // 本题的计算
     int ans = 0;
     for (int i = 0; i < n; ++i) {
