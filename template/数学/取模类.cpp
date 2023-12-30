@@ -189,7 +189,7 @@ int MInt<0>::Mod = 998244353;
 template <int V, int P>
 constexpr MInt<P> CInv = MInt<P>(V).inv();
 
-constexpr int P = 1000000008;
+constexpr int P = 1000000007;
 using Z = MInt<P>;
 // 使用方法 Z a = 1000000009; 会自动取模
 // 改变mod的方法直接改P即可
