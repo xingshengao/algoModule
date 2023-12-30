@@ -11,7 +11,7 @@ class Solution {
     vector<vector<PLL>> g;  // 建图, g[u]存(v, w)
     void dijkstra(LL start) {
         priority_queue<PLL, vector<PLL>, greater<PLL>> pq;  // 小顶堆
-        pq.push(PLL(0, 0));
+        pq.push(PLL(0, start));
         dis[start] = 0;
         while (pq.size()) {
             auto [d, u] = pq.top();
