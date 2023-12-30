@@ -89,13 +89,12 @@ void mydebug(const char* format, Head H, Tail... T) {
 //     TreeNode(int x, TreeNode* left, TreeNode* right) : val(x), left(left), right(right) {}
 // };
 int dx[4] = {0, 1, 0, -1}, dy[4] = {1, 0, -1, 0};
+typedef pair<long long, long long> PLL;
 typedef pair<int, int> PII;
 static constexpr long long mod = 1e9 + 7;
 using LL = long long;
 
 int main() {
     // Solotion so;
-    bitset<20> a(25);
-    cout << a;
     return 0;
 }

@@ -68,15 +68,9 @@ void mydebug(const char* format, Head H, Tail... T) {
     mydebug(format + 1, T...);
 }
 #define debug(...) mydebug(#__VA_ARGS__, __VA_ARGS__)
-<<<<<<< HEAD
-
-static constexpr long long mod = 998244353;
-// static constexpr long long mod = 1000000007;
-=======
 static constexpr long long mod = 998244353;
 // static constexpr long long mod = 1000000007;
 
->>>>>>> 6d25224b56682fac294b540fd72c4e3ca75ce317
 void solve() {}
 signed main() {
     std::ios::sync_with_stdio(0), std::cout.tie(0), std::cin.tie(0);
