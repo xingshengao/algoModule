@@ -192,3 +192,19 @@ constexpr int P = 1000000007;
 using Z = MInt<P>;
 // 使用方法 Z a = 1000000009; 会自动取模
 // 改变mod的方法直接改P即可
+
+// 使用举例
+class Solution {
+   public:
+    int sumSubseqWidths(vector<int>& nums) {
+        sort(nums.begin(), nums.end());
+        Z ans = 0;
+        int n = nums.size();
+        for (int i = 0; i < n; ++i) {
+            // power(T, LL) 返回T, 自动取模
+            ans += Z(nums[i]) * (power(Z(2), i * 1LL) - power(Z(2), n - 1LL - i));
+        }
+        // 返回数值
+        return ans.val();
+    }
+};
