@@ -46,3 +46,21 @@ void LiSanHua() {  // 离散化的代码
     }
     Fenwick<LL> fen(A.size() + 1);
 }
+void LiSanHua_int() {  // 离散化的代码
+    vector<int> arr;
+    // 要进行树状数组前缀和的点去重
+    auto Uni = [](vector<int>& A) -> vector<int> {
+        vector<int> ans(A);
+        sort(ans.begin(), ans.end());
+        ans.erase(unique(ans.begin(), ans.end()), ans.end());
+        return ans;
+    };
+    // 要进行离散化的数组, 可以是x可以是y
+    vector<int> A = Uni(arr);
+    // 离散化
+    map<int, int> mp;
+    for (int i = 0; i < A.size(); ++i) {
+        mp[A[i]] = i + 1;
+    }
+    Fenwick<int> fen(A.size() + 1);
+}
