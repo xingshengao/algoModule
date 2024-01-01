@@ -31,9 +31,9 @@ struct Fenwick {  // 使用n个需要开n-1, 即为Fenwick<int> fen(n + 1);
 
 // 重载MAX树状数组
 struct Info {
-    int x;
-    Info() { x = 0; }
-    Info(int val) { x = val; }
+    LL x;
+    Info() { x = -1e18; }
+    Info(LL val) { x = val; }
     Info operator+=(Info& rhs) {
         this->x = max(this->x, rhs.x);
         return *this;
