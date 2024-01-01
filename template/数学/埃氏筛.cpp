@@ -29,6 +29,22 @@ void solve() {
         }
     }
 }
+// 质数筛
+// const int N = 1000100;
+// int isPrime[N];
+// int init = []() {
+//     memset(isPrime, 1, sizeof(isPrime));
+//     isPrime[1] = 1;
+//     isPrime[2] = 1;
+//     for (int i = 2; i * i < N; ++i) {
+//         if (isPrime[i]) {
+//             for (int j = i * i; j < N; j += i) {
+//                 isPrime[j] = 0;
+//             }
+//         }
+//     }
+//     return 0;
+// }();
 int main() {
     return 0;
 }
