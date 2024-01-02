@@ -23,11 +23,31 @@ long long fpow(long long x, long long exp) {  // 快速幂
     }
     return res;
 }
-string to_string(string s) { return '"' + s + '"'; }
 
-string to_string(const char* s) { return to_string((string)s); }
+struct ListNode {
+    int val;
+    ListNode* next;
+    ListNode(int x) : val(x), next(NULL) {}
+};
+struct TreeNode {
+    int val;
+    TreeNode* left;
+    TreeNode* right;
+    TreeNode() : val(0), left(nullptr), right(nullptr) {}
+    TreeNode(int x) : val(x), left(nullptr), right(nullptr) {}
+    TreeNode(int x, TreeNode* left, TreeNode* right) : val(x), left(left), right(right) {}
+};
+string to_string(string s) {
+    return '"' + s + '"';
+}
 
-string to_string(bool b) { return (b ? "true" : "false"); }
+string to_string(const char* s) {
+    return to_string((string)s);
+}
+
+string to_string(bool b) {
+    return (b ? "true" : "false");
+}
 
 template <typename A, typename B>
 string to_string(pair<A, B> p) {
@@ -47,7 +67,9 @@ string to_string(A v) {
     return res;
 }
 
-void debug_out() { cout << endl; }
+void debug_out() {
+    cout << endl;
+}
 
 template <typename Head, typename... Tail>
 void debug_out(Head H, Tail... T) {
@@ -67,19 +89,8 @@ void mydebug(const char* format, Head H, Tail... T) {
     mydebug(format + 1, T...);
 }
 #define debug(...) mydebug(#__VA_ARGS__, __VA_ARGS__)
-// struct ListNode {
-//     int val;
-//     ListNode* next;
-//     ListNode(int x) : val(x), next(NULL) {}
-// };
-// struct TreeNode {
-//     int val;
-//     TreeNode* left;
-//     TreeNode* right;
-//     TreeNode() : val(0), left(nullptr), right(nullptr) {}
-//     TreeNode(int x) : val(x), left(nullptr), right(nullptr) {}
-//     TreeNode(int x, TreeNode* left, TreeNode* right) : val(x), left(left), right(right) {}
-// };
+
+
 int dx[4] = {0, 1, 0, -1}, dy[4] = {1, 0, -1, 0};
 typedef pair<long long, long long> PLL;
 typedef pair<int, int> PII;
