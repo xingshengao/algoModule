@@ -11,14 +11,13 @@ void solve() {
     vector W(N + 10, vector<int>(110, 0));  // 体积
     vector V(N + 10, vector<int>(110, 0));  // 价值
     vector<int> S(N + 10);                  // 每组有几个
-
+    vector<int> dp(target + 1, 0);
     for (int i = 0; i < N; ++i) {
         cin >> S[i];
         for (int j = 0; j < S[i]; ++j) {
             cin >> W[i][j] >> V[i][j];
         }
     }
-    vector<int> dp(target + 1, 0);
 
     for (int i = 0; i < N; ++i) {             // 枚举哪一组
         for (int j = target; j >= 1; --j) {   // 倒着枚举容量
