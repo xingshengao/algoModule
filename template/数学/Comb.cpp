@@ -182,12 +182,13 @@ struct MInt {
 };
 
 template <>
-int MInt<0>::Mod = 998244353;
-
+int MInt<0>::Mod = 1000000007;
+// int MInt<0>::Mod = 998244353;
 template <int V, int P>
 constexpr MInt<P> CInv = MInt<P>(V).inv();
 
-constexpr int P = 998244353;
+// constexpr int P = 998244353;
+constexpr int P = 1000000007;
 using Z = MInt<P>;
 
 struct Comb {
