@@ -4,6 +4,8 @@ using namespace std;
 using LL = long long;
 
 void f() {
+    vector<LL> arr;
+
     // 离散化
     auto Uni = [](vector<LL>& A) -> vector<LL> {
         vector<LL> ans(A);
