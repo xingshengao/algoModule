@@ -1,3 +1,6 @@
+#include<bits/stdc++.h>
+using namespace std;
+
 template<class Info>
 struct SegmentTree {
     int n;
@@ -101,9 +104,10 @@ struct SegmentTree {
     }
 };
 struct Info {
+    
     int cnt = 0;
-    i64 sum = 0;
-    i64 ans = 0;
+    long long sum = 0;
+    long long ans = 0;
 };
 Info operator+(Info a, Info b) {
     Info c;
@@ -111,5 +115,11 @@ Info operator+(Info a, Info b) {
     c.sum = a.sum + b.sum;
     c.ans = a.ans + b.ans + a.cnt * b.sum - a.sum * b.cnt;
     return c;
+}
+
+int main() {
+    vector<int> arr = {1, 2, 3, 4 ,5};
+    SegmentTree<int> seg(arr);
+
 }
 
