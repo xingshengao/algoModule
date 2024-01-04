@@ -245,5 +245,10 @@ int main() {
     Z ans = A.binom(a, b);
 
     // ans.x就是结果
+
+    // 更好的方法
+    Z _ans = comb.binom(a, b);
+
     std::cout << ans.x << std::endl;
+    std::cout << _ans.x << std::endl;
 }

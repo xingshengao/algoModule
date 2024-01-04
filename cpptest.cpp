@@ -1,12 +1,29 @@
 #include <bits/stdc++.h>
-
 using namespace std;
+
 using LL = long long;
-const double PI = acos(-1);
+using VI = vector<int>;
+using VL = vector<LL>;
+using VII = vector<vector<int>>;
+using VLL = vector<vector<LL>>;
+using PII = pair<int, int>;
+using PLL = pair<long long, long long>;
+
 #define all(c) c.begin(), c.end()
-typedef pair<long long, long long> PLL;
-typedef pair<int, int> PII;
+#define REP(i, a, b) for (int i = a; i < (b); i++)
+#define RREP(i, a, b) for (int i = a; i >= b; i--)
+const double PI = acos(-1);
 vector<pair<int, int>> dirs8 = {{-1, -1}, {-1, 1}, {-1, 0}, {0, 1}, {0, -1}, {1, 1}, {1, -1}, {1, 0}};
+
+template <class T>
+bool chmin(T& a, const T& b) {
+    return b < a ? a = b, 1 : 0;
+}  // set a = min(a,b)
+
+template <class T>
+bool chmax(T& a, const T& b) {
+    return a < b ? a = b, 1 : 0;
+}  // set a = max(a,b)
 
 long long fpow(long long x, long long exp, long long mod) {  // 快速幂
     long long res = 1;
