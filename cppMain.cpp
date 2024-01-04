@@ -17,6 +17,7 @@ long long fpow(long long x, long long exp, long long mod) {  // 快速幂
     }
     return res;
 }
+
 long long fpow(long long x, long long exp) {  // 快速幂
     long long res = 1;
     for (; exp; exp /= 2) {
@@ -25,16 +26,12 @@ long long fpow(long long x, long long exp) {  // 快速幂
     }
     return res;
 }
-string to_string(string s) {
-    return '"' + s + '"';
-}
-string to_string(const char* s) {
-    return to_string((string)s);
-}
 
-string to_string(bool b) {
-    return (b ? "true" : "false");
-}
+string to_string(string s) { return '"' + s + '"'; }
+
+string to_string(const char* s) { return to_string((string)s); }
+
+string to_string(bool b) { return (b ? "true" : "false"); }
 
 template <typename A, typename B>
 string to_string(pair<A, B> p) {
@@ -54,9 +51,7 @@ string to_string(A v) {
     return res;
 }
 
-void debug_out() {
-    cout << endl;
-}
+void debug_out() { cout << endl; }
 
 template <typename Head, typename... Tail>
 void debug_out(Head H, Tail... T) {

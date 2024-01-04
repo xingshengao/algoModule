@@ -7,6 +7,7 @@ const double PI = acos(-1);
 typedef pair<long long, long long> PLL;
 typedef pair<int, int> PII;
 vector<pair<int, int>> dirs8 = {{-1, -1}, {-1, 1}, {-1, 0}, {0, 1}, {0, -1}, {1, 1}, {1, -1}, {1, 0}};
+
 long long fpow(long long x, long long exp, long long mod) {  // 快速幂
     long long res = 1;
     for (; exp; exp /= 2) {
@@ -15,6 +16,7 @@ long long fpow(long long x, long long exp, long long mod) {  // 快速幂
     }
     return res;
 }
+
 long long fpow(long long x, long long exp) {  // 快速幂
     long long res = 1;
     for (; exp; exp /= 2) {
@@ -37,17 +39,12 @@ struct TreeNode {
     TreeNode(int x) : val(x), left(nullptr), right(nullptr) {}
     TreeNode(int x, TreeNode* left, TreeNode* right) : val(x), left(left), right(right) {}
 };
-string to_string(string s) {
-    return '"' + s + '"';
-}
 
-string to_string(const char* s) {
-    return to_string((string)s);
-}
+string to_string(string s) { return '"' + s + '"'; }
 
-string to_string(bool b) {
-    return (b ? "true" : "false");
-}
+string to_string(const char* s) { return to_string((string)s); }
+
+string to_string(bool b) { return (b ? "true" : "false"); }
 
 template <typename A, typename B>
 string to_string(pair<A, B> p) {
@@ -67,9 +64,7 @@ string to_string(A v) {
     return res;
 }
 
-void debug_out() {
-    cout << endl;
-}
+void debug_out() { cout << endl; }
 
 template <typename Head, typename... Tail>
 void debug_out(Head H, Tail... T) {
@@ -89,7 +84,6 @@ void mydebug(const char* format, Head H, Tail... T) {
     mydebug(format + 1, T...);
 }
 #define debug(...) mydebug(#__VA_ARGS__, __VA_ARGS__)
-
 
 int dx[4] = {0, 1, 0, -1}, dy[4] = {1, 0, -1, 0};
 typedef pair<long long, long long> PLL;
