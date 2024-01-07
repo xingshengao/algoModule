@@ -88,5 +88,6 @@
         "variant": "cpp",
         "rope": "cpp",
         "slist": "cpp"
-    }
+    },
+    "python.REPL.enableREPLSmartSend": false
 }
