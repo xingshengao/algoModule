@@ -22,3 +22,30 @@ int init = []() {
     sort(A.begin(), A.end());
     return 0;
 }();
+
+// 1e11内的所有回文数字
+namespace EE11 {
+using LL = long long;
+// 预处理1e11内的所有回文数字
+vector<LL> A;
+// 这种写法, 可以保证只执行一次
+int init = []() {
+    // 高效枚举1e11内的回文数
+    for (LL i = 1; i <= 1000000; i++) {
+        // 第一部分 12345->123454321
+        LL p = i;
+        for (LL x = i / 10; x > 0; x /= 10) {
+            p = p * 10 + x % 10;
+        }
+        if (p < 1e11) A.push_back(p);
+        // 第二部分 12345->1234554321
+        p = i;
+        for (LL x = i; x > 0; x /= 10) {
+            p = p * 10 + x % 10;
+        }
+        if (p < 1e11) A.push_back(p);
+    }
+    sort(A.begin(), A.end());
+    return 0;
+}();
+};  // namespace EE11
