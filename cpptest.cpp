@@ -8,12 +8,15 @@ using VII = vector<vector<int>>;
 using VLL = vector<vector<LL>>;
 using PII = pair<int, int>;
 using PLL = pair<long long, long long>;
+using TIII = tuple<int, int, int>;
+using TLLL = tuple<LL, LL, LL>;
 
 #define all(c) c.begin(), c.end()
 #define REP(i, a, b) for (int i = a; i < (b); i++)
 #define RREP(i, a, b) for (int i = a; i >= b; i--)
 const double PI = acos(-1);
 vector<pair<int, int>> dirs8 = {{-1, -1}, {-1, 1}, {-1, 0}, {0, 1}, {0, -1}, {1, 1}, {1, -1}, {1, 0}};
+vector<pair<int, int>> dirs4 = {{0, 1}, {1, 0}, {0, -1}, {-1, 0}};
 
 template <class T>
 bool chmin(T& a, const T& b) {
