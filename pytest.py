@@ -9,8 +9,6 @@ from typing import List
 from numpy import arange
 from tqdm import tqdm
 
+
 if __name__ == '__main__':
-    a = "faddab"
-    s = "ab"
-    b = a.count(a[1])
-    print(b)
+    pass
