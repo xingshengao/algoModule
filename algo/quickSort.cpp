@@ -1,4 +1,5 @@
-#include "..\leetcode.h"
+#include<bits/stdc++.h>
+using namespace std;
 
 template <typename T>
 void QuickSort(vector<T>& v, int l, int r) {
@@ -64,11 +65,11 @@ void QuickSort3(vector<T>& v, int l, int r) {
 }
 
 int main() {
-    vector<int> nums = {1, 23, 3, 5, 6, 5, 8, 9};
-    // assert(is_sorted(nums.begin(), nums.end()));
-    QuickSort3(nums, 0, nums.size() - 1);
-    cout << to_string(nums) << endl;
-    vector<string> strs = {"abc", "fsa", "dsfade", "ab", "ab", "zzq"};
-    QuickSort3(strs, 0, strs.size() - 1);
-    cout << to_string(strs) << endl;
+    // vector<int> nums = {1, 23, 3, 5, 6, 5, 8, 9};
+    // // assert(is_sorted(nums.begin(), nums.end()));
+    // QuickSort3(nums, 0, nums.size() - 1);
+    // cout << to_string(nums) << endl;
+    // vector<string> strs = {"abc", "fsa", "dsfade", "ab", "ab", "zzq"};
+    // QuickSort3(strs, 0, strs.size() - 1);
+    // cout << to_string(strs) << endl;
 }
