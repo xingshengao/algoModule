@@ -118,30 +118,8 @@ typedef pair<long long, long long> PLL;
 typedef pair<int, int> PII;
 static constexpr long long mod = 1e9 + 7;
 using LL = long long;
-class Solution {
-public:
-    int minimumMoves(vector<vector<int>>& grid) {
-        vector<PII> need; // 需要石子的坐标
-        vector<PII> give; // 给出石子的坐标
-        for (int i = 0; i < 3; ++i) {
-            for (int j = 0; j < 3; ++j) {
-                if (grid[i][j] == 0) {
-                    need.push_back({i, j});
-                } else {
-                    int x = grid[i][j];
-                    for (int k = 0; k < x - 1; ++k) {
-                        give.push_back({i, j});
-                    }
-                }
-            }
-        }
-        debug(need);
-        debug(give);
-        return 0;
-    }
-};
+
 int main() {
     // Solution so;
-
     return 0;
 }
