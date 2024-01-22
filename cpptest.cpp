@@ -101,6 +101,28 @@ using PII = pair<int, int>;
 using PLL = pair<long long, long long>;
 using TIII = tuple<int, int, int>;
 using TLLL = tuple<LL, LL, LL>;
+using VPII = vector<PII>;
+
+template <class T>
+void mkuni(vector<T>& v) {
+    sort(all(v));
+    v.erase(unique(all(v)), v.end());
+}
+
+template <class T, class S = T>
+S SUM(const vector<T>& a) {
+    return accumulate(a.begin(), a.end(), S(0));
+}
+
+template <class T>
+T MAX(const vector<T>& a) {
+    return *max_element(a.begin(), a.end());
+}
+
+template <class T>
+T MIN(const vector<T>& a) {
+    return *min_element(a.begin(), a.end());
+}
 
 template <class T>
 bool chmin(T& a, const T& b) {

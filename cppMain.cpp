@@ -2,6 +2,9 @@
 #define int long long
 using namespace std;
 
+#define all(c) c.begin(), c.end()
+#define REP(i, a, b) for (int i = a; i < (b); i++)
+#define RREP(i, a, b) for (int i = a; i >= b; i--)
 using LL = long long;
 using VI = vector<int>;
 using VL = vector<LL>;
@@ -11,14 +14,28 @@ using PII = pair<int, int>;
 using PLL = pair<long long, long long>;
 using TIII = tuple<int, int, int>;
 using TLLL = tuple<LL, LL, LL>;
+using VPII = vector<PII>;
 
-#define all(c) c.begin(), c.end()
-#define REP(i, a, b) for (int i = a; i < (b); i++)
-#define RREP(i, a, b) for (int i = a; i >= b; i--)
-const double PI = acos(-1);
-vector<pair<int, int>> dirs8 = {{-1, -1}, {-1, 1}, {-1, 0}, {0, 1}, {0, -1}, {1, 1}, {1, -1}, {1, 0}};
-vector<pair<int, int>> dirs4 = {{0, 1}, {1, 0}, {0, -1}, {-1, 0}};
-int dx[4] = {0, 1, 0, -1}, dy[4] = {1, 0, -1, 0};
+template <class T>
+void mkuni(vector<T>& v) {
+    sort(all(v));
+    v.erase(unique(all(v)), v.end());
+}
+
+template <class T, class S = T>
+S SUM(const vector<T>& a) {
+    return accumulate(a.begin(), a.end(), S(0));
+}
+
+template <class T>
+T MAX(const vector<T>& a) {
+    return *max_element(a.begin(), a.end());
+}
+
+template <class T>
+T MIN(const vector<T>& a) {
+    return *min_element(a.begin(), a.end());
+}
 
 template <class T>
 bool chmin(T& a, const T& b) {
@@ -29,6 +46,11 @@ template <class T>
 bool chmax(T& a, const T& b) {
     return a < b ? a = b, 1 : 0;
 }  // set a = max(a,b)
+
+const double PI = acos(-1);
+vector<pair<int, int>> dirs8 = {{-1, -1}, {-1, 1}, {-1, 0}, {0, 1}, {0, -1}, {1, 1}, {1, -1}, {1, 0}};
+vector<pair<int, int>> dirs4 = {{0, 1}, {1, 0}, {0, -1}, {-1, 0}};
+int dx[4] = {0, 1, 0, -1}, dy[4] = {1, 0, -1, 0};
 
 long long fpow(long long x, long long exp, long long mod) {  // 快速幂
     long long res = 1;
@@ -62,11 +84,17 @@ struct TreeNode {
     TreeNode(int x, TreeNode* left, TreeNode* right) : val(x), left(left), right(right) {}
 };
 
-string to_string(string s) { return '"' + s + '"'; }
+string to_string(string s) {
+    return '"' + s + '"';
+}
 
-string to_string(const char* s) { return to_string((string)s); }
+string to_string(const char* s) {
+    return to_string((string)s);
+}
 
-string to_string(bool b) { return (b ? "true" : "false"); }
+string to_string(bool b) {
+    return (b ? "true" : "false");
+}
 
 template <typename A, typename B>
 string to_string(pair<A, B> p) {
@@ -86,7 +114,9 @@ string to_string(A v) {
     return res;
 }
 
-void debug_out() { cout << endl; }
+void debug_out() {
+    cout << endl;
+}
 
 template <typename Head, typename... Tail>
 void debug_out(Head H, Tail... T) {
