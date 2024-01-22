@@ -13,7 +13,7 @@ struct Magic {
 
     // 调整 st1 和 st2 的大小，保证调整后 st1 保存前 K 小值
     void adjust() {
-        while (st1.size() < K && st2.size() > 0) {
+        while (st1.size() < K and st2.size() > 0) {
             LL t = *(st2.begin());
             st1.insert(t);
             sm += t;
@@ -29,7 +29,7 @@ struct Magic {
 
     // 插入元素 x
     void add(LL x) {
-        if (!st2.empty() && x >= *(st2.begin()))
+        if (!st2.empty() and x >= *(st2.begin()))
             st2.insert(x);
         else
             st1.insert(x), sm += x;
