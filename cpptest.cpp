@@ -4,8 +4,8 @@ using namespace std;
 using LL = long long;
 using VI = vector<int>;
 using VL = vector<LL>;
-using VII = vector<vector<int>>;
-using VLL = vector<vector<LL>>;
+using VVI = vector<vector<int>>;
+using VVL = vector<vector<LL>>;
 using PII = pair<int, int>;
 using PLL = pair<long long, long long>;
 using TIII = tuple<int, int, int>;
@@ -60,17 +60,11 @@ long long fpow(long long x, long long exp) {  // 快速幂
 //     TreeNode(int x, TreeNode* left, TreeNode* right) : val(x), left(left), right(right) {}
 // };
 
-string to_string(string s) {
-    return '"' + s + '"';
-}
+string to_string(string s) { return '"' + s + '"'; }
 
-string to_string(const char* s) {
-    return to_string((string)s);
-}
+string to_string(const char* s) { return to_string((string)s); }
 
-string to_string(bool b) {
-    return (b ? "true" : "false");
-}
+string to_string(bool b) { return (b ? "true" : "false"); }
 
 template <typename A, typename B>
 string to_string(pair<A, B> p) {
@@ -90,9 +84,7 @@ string to_string(A v) {
     return res;
 }
 
-void debug_out() {
-    cout << endl;
-}
+void debug_out() { cout << endl; }
 
 template <typename Head, typename... Tail>
 void debug_out(Head H, Tail... T) {
@@ -121,5 +113,6 @@ using LL = long long;
 
 int main() {
     // Solution so;
+
     return 0;
 }
