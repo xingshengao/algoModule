@@ -36,11 +36,17 @@ long long fpow(long long x, long long exp) {  // 快速幂
 //     TreeNode(int x, TreeNode* left, TreeNode* right) : val(x), left(left), right(right) {}
 // };
 
-string to_string(string s) { return '"' + s + '"'; }
+string to_string(string s) {
+    return '"' + s + '"';
+}
 
-string to_string(const char* s) { return to_string((string)s); }
+string to_string(const char* s) {
+    return to_string((string)s);
+}
 
-string to_string(bool b) { return (b ? "true" : "false"); }
+string to_string(bool b) {
+    return (b ? "true" : "false");
+}
 
 template <typename A, typename B>
 string to_string(pair<A, B> p) {
@@ -60,7 +66,9 @@ string to_string(A v) {
     return res;
 }
 
-void debug_out() { cout << endl; }
+void debug_out() {
+    cout << endl;
+}
 
 template <typename Head, typename... Tail>
 void debug_out(Head H, Tail... T) {
@@ -104,6 +112,7 @@ bool chmax(T& a, const T& b) {
     return a < b ? a = b, 1 : 0;
 }  // set a = max(a,b)
 
+vector<pair<int, int>> dirs = {{0, 1}, {1, 0}, {0, -1}, {-1, 0}};
 int dx[4] = {0, 1, 0, -1}, dy[4] = {1, 0, -1, 0};
 typedef pair<long long, long long> PLL;
 typedef pair<int, int> PII;
