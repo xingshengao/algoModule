@@ -1,33 +1,9 @@
 #include <bits/stdc++.h>
 using namespace std;
 
-using LL = long long;
-using VI = vector<int>;
-using VL = vector<LL>;
-using VVI = vector<vector<int>>;
-using VVL = vector<vector<LL>>;
-using PII = pair<int, int>;
-using PLL = pair<long long, long long>;
-using TIII = tuple<int, int, int>;
-using TLLL = tuple<LL, LL, LL>;
-
-#define all(c) c.begin(), c.end()
-#define REP(i, a, b) for (int i = a; i < (b); i++)
-#define RREP(i, a, b) for (int i = a; i >= b; i--)
 const double PI = acos(-1);
 vector<pair<int, int>> dirs8 = {{-1, -1}, {-1, 1}, {-1, 0}, {0, 1}, {0, -1}, {1, 1}, {1, -1}, {1, 0}};
 vector<pair<int, int>> dirs4 = {{0, 1}, {1, 0}, {0, -1}, {-1, 0}};
-
-template <class T>
-bool chmin(T& a, const T& b) {
-    return b < a ? a = b, 1 : 0;
-}  // set a = min(a,b)
-
-template <class T>
-bool chmax(T& a, const T& b) {
-    return a < b ? a = b, 1 : 0;
-}  // set a = max(a,b)
-
 long long fpow(long long x, long long exp, long long mod) {  // 快速幂
     long long res = 1;
     for (; exp; exp /= 2) {
@@ -105,6 +81,29 @@ void mydebug(const char* format, Head H, Tail... T) {
 }
 #define debug(...) mydebug(#__VA_ARGS__, __VA_ARGS__)
 
+#define all(c) c.begin(), c.end()
+#define REP(i, a, b) for (int i = a; i < (b); i++)
+#define RREP(i, a, b) for (int i = a; i >= b; i--)
+using LL = long long;
+using VI = vector<int>;
+using VL = vector<LL>;
+using VVI = vector<vector<int>>;
+using VVL = vector<vector<LL>>;
+using PII = pair<int, int>;
+using PLL = pair<long long, long long>;
+using TIII = tuple<int, int, int>;
+using TLLL = tuple<LL, LL, LL>;
+
+template <class T>
+bool chmin(T& a, const T& b) {
+    return b < a ? a = b, 1 : 0;
+}  // set a = min(a,b)
+
+template <class T>
+bool chmax(T& a, const T& b) {
+    return a < b ? a = b, 1 : 0;
+}  // set a = max(a,b)
+
 int dx[4] = {0, 1, 0, -1}, dy[4] = {1, 0, -1, 0};
 typedef pair<long long, long long> PLL;
 typedef pair<int, int> PII;
@@ -113,6 +112,5 @@ using LL = long long;
 
 int main() {
     // Solution so;
-
     return 0;
 }
