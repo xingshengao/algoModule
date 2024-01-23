@@ -138,11 +138,15 @@ using VI = vector<int>;
 using VL = vector<LL>;
 using VVI = vector<vector<int>>;
 using VVL = vector<vector<LL>>;
+using VD = vector<double>;
+using VVD = vector<vector<double>>;
 using PII = pair<int, int>;
 using PLL = pair<long long, long long>;
 using TIII = tuple<int, int, int>;
 using TLLL = tuple<LL, LL, LL>;
 using VPII = vector<PII>;
+using VVVI = vector<vector<vector<int>>>;
+using VVVL = vector<vector<vector<LL>>>;
 
 template <class T>
 void mkuni(vector<T>& v) {
