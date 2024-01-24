@@ -77,17 +77,11 @@ ostream& operator<<(ostream& out, const vector<T>& obj) {
     return out;
 }
 
-string to_string(string s) {
-    return '"' + s + '"';
-}
+string to_string(string s) { return '"' + s + '"'; }
 
-string to_string(const char* s) {
-    return to_string((string)s);
-}
+string to_string(const char* s) { return to_string((string)s); }
 
-string to_string(bool b) {
-    return (b ? "true" : "false");
-}
+string to_string(bool b) { return (b ? "true" : "false"); }
 
 template <typename A, typename B>
 string to_string(pair<A, B> p) {
@@ -107,9 +101,7 @@ string to_string(A v) {
     return res;
 }
 
-void debug_out() {
-    cout << endl;
-}
+void debug_out() { cout << endl; }
 
 template <typename Head, typename... Tail>
 void debug_out(Head H, Tail... T) {
@@ -129,6 +121,11 @@ void mydebug(const char* format, Head H, Tail... T) {
     mydebug(format + 1, T...);
 }
 #define debug(...) mydebug(#__VA_ARGS__, __VA_ARGS__)
+
+bool isdig(char x) { return x >= '0' && x <= '9'; }
+bool isup(char x) { return x >= 'A' && x <= 'Z'; }
+bool isdown(char x) { return x >= 'a' && x <= 'z'; }
+bool islet(char x) { return isup(x) || isdown(x); }
 
 #define all(c) c.begin(), c.end()
 #define REP(i, a, b) for (int i = a; i < (b); i++)
