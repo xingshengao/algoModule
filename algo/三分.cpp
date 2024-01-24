@@ -47,7 +47,7 @@ void solve() {
         }
         return res;
     };
-    int l = 0, r = 1000000002;
+    int l = 0, r = 1e18;
 
     // // 写法1, 抄的cf大佬的
     // while (l < r) {
