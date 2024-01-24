@@ -5,7 +5,6 @@ using namespace std;
 #define all(c) c.begin(), c.end()
 #define REP(i, a, b) for (int i = a; i < (b); i++)
 #define RREP(i, a, b) for (int i = a; i >= b; i--)
-#define print(x) cout << x << endl
 using LL = long long;
 using VI = vector<int>;
 using VL = vector<LL>;
@@ -181,7 +180,40 @@ void mydebug(const char* format, Head H, Tail... T) {
 static constexpr long long mod = 998244353;
 // static constexpr long long mod = 1000000007;
 
-void solve() {}
+// https://codeforces.com/problemset/problem/1555/D
+
+// 输入 n(≤2e5) m(≤2e5) 和长为 n 的字符串 s，仅包含小写字母 'a' 'b' 'c'，下标从 1 开始。
+// 然后输入 m 个询问，每个询问输入 L R(1≤L≤R≤n)。
+// 对每个询问，要使 s[L] 到 s[R] 中没有长度大于等于 2 的回文子串，至少需要修改多少个字符？注意你只能使用 'a' 'b' 'c' 来修改。
+// 每个询问是独立的，即修改操作不影响其他询问。
+void solve() {
+    int n, m;
+    cin >> n >> m;
+    string s;
+    cin >> s;
+    vector<string> vec = {"abc", "acb", "bac", "bca", "cab", "cba"};
+    vector<vector<int>> pre(6, VI(n + 1));  // 前缀和修改次数数组
+    for (int i = 0; i < 6; ++i) {
+        int sum = 0;
+        string t = vec[i];
+        pre[i][0] = 0;
+        for (int j = 0; j < n; ++j) {
+            if (s[j] != t[j % 3]) sum++;
+            pre[i][j + 1] = sum;
+        }
+    }
+    for (int _ = 0; _ < m; ++_) {
+        int l, r;
+        cin >> l >> r;
+        --l, --r;
+        int res = 1e18;
+        for (int i = 0; i < 6; ++i) {
+            chmin(res, pre[i][r + 1] - pre[i][l]);
+        }
+        cout << res << endl;
+    }
+
+}
 
 signed main() {
     std::ios::sync_with_stdio(0), std::cout.tie(0), std::cin.tie(0);

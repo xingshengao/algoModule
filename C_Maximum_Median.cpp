@@ -181,7 +181,41 @@ void mydebug(const char* format, Head H, Tail... T) {
 static constexpr long long mod = 998244353;
 // static constexpr long long mod = 1000000007;
 
-void solve() {}
+// https://codeforces.com/problemset/problem/1201/C
+
+// 【灵茶の试炼】一周年纪念。
+
+// 输入 n(1≤n≤2e5 且是奇数) k(1≤k≤1e9) 和长为 n 的数组 a(1≤a[i]≤1e9)。
+
+// 每次操作你可以把 a 中的一个数加一。
+// 至多操作 k 次。
+
+// 输出 a 的中位数的最大值。
+void solve() {
+    int n, k;
+    cin >> n >> k;
+    VI a(n);
+    for (int i = 0; i < n; ++i) cin >> a[i];
+    sort(all(a));
+    int l = 1, r = 1e10;
+
+    auto check = [&](int mid) -> bool {
+        int sum = 0;
+        for (int i = n / 2; i < n; ++i) {
+            if (a[i] < mid) sum += mid - a[i];
+        }
+        return sum <= k;
+    };
+
+    while (l < r) {
+        int mid = l + (r - l + 1 >> 1);
+        if (check(mid))
+            l = mid;
+        else
+            r = mid - 1;
+    }
+    print(l);
+}
 
 signed main() {
     std::ios::sync_with_stdio(0), std::cout.tie(0), std::cin.tie(0);

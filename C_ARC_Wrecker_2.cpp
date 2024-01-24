@@ -5,7 +5,6 @@ using namespace std;
 #define all(c) c.begin(), c.end()
 #define REP(i, a, b) for (int i = a; i < (b); i++)
 #define RREP(i, a, b) for (int i = a; i >= b; i--)
-#define print(x) cout << x << endl
 using LL = long long;
 using VI = vector<int>;
 using VL = vector<LL>;
@@ -181,7 +180,25 @@ void mydebug(const char* format, Head H, Tail... T) {
 static constexpr long long mod = 998244353;
 // static constexpr long long mod = 1000000007;
 
-void solve() {}
+void solve() {
+    // 交错和不变
+    // 问题变为多杀个区间的交错和一样
+    int n;
+    cin >> n;
+    VI a(n);
+    for (int i = 0; i < n; ++i) cin >> a[i];
+    map<int, int> mp;
+    mp[0] = 1;
+    int sum = 0, ans = 0;
+    for (int i = 0; i < n; ++i) {
+        if (i & 1) sum -= a[i];
+        else sum += a[i];
+        if (mp.find(sum) != mp.end()) ans += mp[sum];
+        mp[sum] ++;
+    }
+    cout << ans << endl;
+
+}
 
 signed main() {
     std::ios::sync_with_stdio(0), std::cout.tie(0), std::cin.tie(0);

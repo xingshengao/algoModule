@@ -5,7 +5,6 @@ using namespace std;
 #define all(c) c.begin(), c.end()
 #define REP(i, a, b) for (int i = a; i < (b); i++)
 #define RREP(i, a, b) for (int i = a; i >= b; i--)
-#define print(x) cout << x << endl
 using LL = long long;
 using VI = vector<int>;
 using VL = vector<LL>;
@@ -181,7 +180,43 @@ void mydebug(const char* format, Head H, Tail... T) {
 static constexpr long long mod = 998244353;
 // static constexpr long long mod = 1000000007;
 
-void solve() {}
+void solve() {
+    int cntV, cntE;
+    VI vis(4e5 + 1, 0);
+    int n;
+    cin >> n;
+    VVI g(4e5 + 1);  // 建图
+    for (int i = 0; i < n; ++i) {
+        int u, v;
+        cin >> u >> v;
+        g[u].push_back(v);
+        g[v].push_back(u);
+    }
+
+    // 每行选一个数字, 最多选多少个不同的数字
+    // 我们将值域中每个数视作一个节点，将每张卡片视作连接两个节点的边，
+    // 则问题转化为：对于每条边都选择一个端点，使得被选择的节点总数最大。
+
+    function<void(int)> dfs = [&](int x) {
+        vis[x] = 1;
+        ++cntV;
+        cntE += g[x].size();
+        for (int y : g[x]) {
+            if (!vis[y]) dfs(y);
+        }
+    };
+
+    int ans = 0;
+    // 分连通块计算, 对于树, ans+=边, 对于有环的, ans+=点
+    for (int i = 1; i <= 4e5; ++i) {
+        if (not vis[i]) {
+            cntV = cntE = 0;
+            dfs(i);
+            ans += min(cntV, cntE / 2);
+        }
+    }
+    cout << ans << endl;
+}
 
 signed main() {
     std::ios::sync_with_stdio(0), std::cout.tie(0), std::cin.tie(0);
