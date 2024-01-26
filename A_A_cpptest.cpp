@@ -141,7 +141,8 @@ using PII = pair<int, int>;
 using PLL = pair<long long, long long>;
 using TIII = tuple<int, int, int>;
 using TLLL = tuple<LL, LL, LL>;
-using VPII = vector<PII>;
+using VPII = vector<pair<int, int>>;
+using VVPII = vector<vector<pair<int, int>>>;
 using VVVI = vector<vector<vector<int>>>;
 using VVVL = vector<vector<vector<LL>>>;
 
