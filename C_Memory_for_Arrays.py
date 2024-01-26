@@ -5,16 +5,14 @@ de = 1
 if 1:
 
     if standard_input:
-        import io
-        import os
-        import sys
-        def input(): return sys.stdin.readline().strip()
+        import io, os, sys
+        input = lambda: sys.stdin.readline().strip()
 
         inf = float('inf')
 
         def I():
             return input()
-
+        
         def II():
             return int(input())
 
@@ -67,24 +65,20 @@ if 1:
 
             def read(self):
                 while True:
-                    b = os.read(self._fd, max(
-                        os.fstat(self._fd).st_size, BUFSIZE))
+                    b = os.read(self._fd, max(os.fstat(self._fd).st_size, BUFSIZE))
                     if not b:
                         break
                     ptr = self.buffer.tell()
-                    self.buffer.seek(0, 2), self.buffer.write(
-                        b), self.buffer.seek(ptr)
+                    self.buffer.seek(0, 2), self.buffer.write(b), self.buffer.seek(ptr)
                 self.newlines = 0
                 return self.buffer.read()
 
             def readline(self):
                 while self.newlines == 0:
-                    b = os.read(self._fd, max(
-                        os.fstat(self._fd).st_size, BUFSIZE))
+                    b = os.read(self._fd, max(os.fstat(self._fd).st_size, BUFSIZE))
                     self.newlines = b.count(b"\n") + (not b)
                     ptr = self.buffer.tell()
-                    self.buffer.seek(0, 2), self.buffer.write(
-                        b), self.buffer.seek(ptr)
+                    self.buffer.seek(0, 2), self.buffer.write(b), self.buffer.seek(ptr)
                 self.newlines -= 1
                 return self.buffer.readline()
 
@@ -127,7 +121,6 @@ if 1:
 
     if hashing:
         RANDOM = random.getrandbits(20)
-
         class Wrapper(int):
             def __init__(self, x):
                 int.__init__(x)
@@ -138,9 +131,8 @@ if 1:
     if read_from_file:
         file = open("input.txt", "r").readline().strip()[1:-1]
         fin = open(file, 'r')
-        def input(): return fin.readline().strip()
+        input = lambda: fin.readline().strip()
         output_file = open("output.txt", "w")
-
         def fprint(*args, **kwargs):
             print(*args, **kwargs, file=output_file)
 
@@ -150,10 +142,45 @@ if 1:
             print(*args, **kwargs)
             print('\033[0m', end='')
 
-
 def main():
-    return
+    n, m = MII()
+    nums = LII()
+    
+    cnt = [0] * 30
+    for x in MII():
+        cnt[x] += 1
+    
+    ans = 0
+    tmp = []
+    for i in range(30):
 
+        pt = 0
+        for idx in range(n):
+            if nums[idx] % 2:
+                if pt < len(tmp):
+                    ans += tmp[pt]
+                    pt += 1
+                elif cnt[i]:
+                    ans += 1
+                    cnt[i] -= 1
+            nums[idx] //= 2
+        
+        tmp = tmp[pt:]
+        v = []
+        if len(tmp) % 2: v.append(tmp.pop())
+        if cnt[i] % 2: v.append(1)
+        tmp = list(merge(tmp, v, [1] * (cnt[i] // 2 * 2), reverse=True))
+        
+        ntmp = []
+        for i in range(0, len(tmp), 2):
+            ntmp.append(tmp[i])
+            if i + 1 < len(tmp):
+                ntmp[-1] += tmp[i+1]
+        tmp = ntmp
+    
+    print(ans)
+
+    return 
 
 t = 1
 for _ in range(t):
