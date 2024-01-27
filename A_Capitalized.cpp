@@ -182,7 +182,19 @@ void mydebug(const char* format, Head H, Tail... T) {
 static constexpr long long mod = 998244353;
 // static constexpr long long mod = 1000000007;
 
-void solve() {}
+void solve() {
+    string s;
+    cin >> s;
+    bool ans = true;
+    if (!isup(s[0])) {
+        ans = false;
+    }
+    for (int i = 1; i < s.size(); ++i) {
+        if (!islower(s[i])) ans = false;
+    }
+    if (ans) cout << "Yes" << endl;
+    else cout << "No" << endl;
+}
 
 signed main() {
     std::ios::sync_with_stdio(0), std::cout.tie(0), std::cin.tie(0);

@@ -182,12 +182,28 @@ void mydebug(const char* format, Head H, Tail... T) {
 static constexpr long long mod = 998244353;
 // static constexpr long long mod = 1000000007;
 
-void solve() {}
+void solve() {
+    int N;
+    cin >> N;
+    // 转为9进制
+    string s;
+    while (N > 0) {
+        s.push_back(N % 9 + '0');
+        N /= 9;
+    }
+    reverse(all(s));
+    for (auto& c : s) {
+        if (c >= '4') {
+            c += 1;
+        }
+    }
+    cout << s << endl;
+}
 
 signed main() {
     std::ios::sync_with_stdio(0), std::cout.tie(0), std::cin.tie(0);
     int T = 1;
-    // cin >> T;
+    cin >> T;
     while (T--) {
         solve();
     }

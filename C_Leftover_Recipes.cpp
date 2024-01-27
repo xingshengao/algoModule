@@ -182,7 +182,43 @@ void mydebug(const char* format, Head H, Tail... T) {
 static constexpr long long mod = 998244353;
 // static constexpr long long mod = 1000000007;
 
-void solve() {}
+void solve() {
+    int n;
+    cin >> n;
+    VI q(n), a(n), b(n);
+    for (int i = 0; i < n; ++i) cin >> q[i];
+    for (int i = 0; i < n; ++i) cin >> a[i];
+    for (int i = 0; i < n; ++i) cin >> b[i];
+    // 枚举制作多少个A菜单, 二分查找多少个B菜
+    int ans = 0;
+    int mx = 1e9;
+    for (int i = 0; i < n; ++i) {
+        if (a[i] == 0) continue;
+        mx = min(mx, q[i] / a[i]);
+    }
+    auto check = [&](int cc, int mid) -> bool {
+        for (int i = 0; i < n; ++i) {
+            if (cc * a[i] + mid * b[i] > q[i]) return false;
+        }
+        return true;
+    };
+    // [0,mx]个A菜
+    for (int cnta = 0; cnta <= mx; ++cnta) {
+        // 二分b菜上界
+        int lo = 0, hi = 1e9 + 1;
+        while (lo < hi) {
+            int mid = lo + (hi - lo + 1 >> 1);
+            // cnta个a菜情况下, 能不能mid个b菜
+            if (check(cnta, mid)) {
+                lo = mid;
+            } else {
+                hi = mid - 1;
+            }
+        }
+        chmax(ans, cnta + hi);
+    }
+    cout << ans << endl;
+}
 
 signed main() {
     std::ios::sync_with_stdio(0), std::cout.tie(0), std::cin.tie(0);

@@ -181,8 +181,34 @@ void mydebug(const char* format, Head H, Tail... T) {
 
 static constexpr long long mod = 998244353;
 // static constexpr long long mod = 1000000007;
+// "https://codeforces.com/problemset/problem/920/C
 
-void solve() {}
+// 输入 n(1≤n≤3e5) 和一个 1~n 的排列 a，然后输入一个长为 n-1 的 01 字符串 s。
+// s[i]=1 表示你可以交换 a[i] 和 a[i+1]（交换次数不限），s[i]=0 表示不能交换 a[i] 和 a[i+1]。
+// 判断能否把 a 变成递增的。输出 YES 或 NO。"
+
+void solve() {
+    int n;
+    cin >> n;
+    VI a(n);
+    for (int i = 0; i < n; ++i) cin >> a[i];
+    string s;
+    cin >> s;
+    VVI vec; // 存可以交换的区间
+    int i = 0;
+    while (i < n) {
+        int j = i + 1;
+        while (j < n and s[j - 1] == '1') {
+            ++j;
+        }
+        sort(a.begin() + i, a.begin() + j);
+        vec.push_back({i, j});
+        i = j;
+    }
+    bool ans = is_sorted(all(a));
+    if (ans) cout << "YES" << "\n";
+    else cout << "NO" << "\n";
+}
 
 signed main() {
     std::ios::sync_with_stdio(0), std::cout.tie(0), std::cin.tie(0);

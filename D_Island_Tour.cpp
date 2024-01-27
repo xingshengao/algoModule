@@ -182,7 +182,10 @@ void mydebug(const char* format, Head H, Tail... T) {
 static constexpr long long mod = 998244353;
 // static constexpr long long mod = 1000000007;
 
-void solve() {}
+void solve() {
+    int N, M;
+    cin >> N >> M;
+}
 
 signed main() {
     std::ios::sync_with_stdio(0), std::cout.tie(0), std::cin.tie(0);

@@ -182,7 +182,22 @@ void mydebug(const char* format, Head H, Tail... T) {
 static constexpr long long mod = 998244353;
 // static constexpr long long mod = 1000000007;
 
-void solve() {}
+void solve() {
+    VI cnt(26, 0);
+    string s;
+    cin >> s;
+    for (char c : s) {
+        cnt[c - 'a']++;
+    }
+    int ans = 0, ans_cnt = 0;
+    for (int i = 0; i < 26; ++i) {
+        if (cnt[i] > ans_cnt) {
+            ans = i;
+            ans_cnt = cnt[i];
+        }
+    }
+    cout << (char)('a' + ans) << endl;
+}
 
 signed main() {
     std::ios::sync_with_stdio(0), std::cout.tie(0), std::cin.tie(0);
