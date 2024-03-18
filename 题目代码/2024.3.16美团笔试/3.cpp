@@ -179,11 +179,34 @@ void mydebug(const char* format, Head H, Tail... T) {
 }
 #define debug(...) mydebug(#__VA_ARGS__, __VA_ARGS__)
 
-static constexpr long long mod = 998244353;
-// static constexpr long long mod = 1000000007;
+// static constexpr long long mod = 998244353;
+static constexpr long long mod = 1000000007;
 
 void solve() {
-    
+    int n, q;
+    cin >> n >> q;
+    vector<int> a(n);
+    for (int i = 0; i < n; ++i) cin >> a[i];
+    vector<int> vec(n, 0);  // 某个数没被翻倍的次数
+    for (int qi = 0; qi < q; ++qi) {
+        int x;
+        cin >> x;
+        x--;
+        vec[x]++;
+    }
+    for (int i = 0; i < n; ++i) {
+        vec[i] = q - vec[i];
+    }
+    // vec[i]是每个数被翻倍的次数
+    int ans = 0;
+    for (int i = 0; i < n; ++i) {
+        int x = a[i];
+        int t = vec[i];
+        x = x * fpow(2LL, t, mod);
+        ans += x;
+        ans = (ans % mod + mod) % mod;
+    }
+    cout << ans << endl;
 }
 
 signed main() {

@@ -14,27 +14,34 @@ from collections import Counter
 
 
 class Solution:
-    def maxOperations(self, nums: List[int]) -> int:
+    def sumOfPower(self, nums: List[int], k: int) -> int:
+        mod = 1000000007
         n = len(nums)
+        # dfs(i, j) 代表[0: i], 以第i个元素为结尾选出和为j的方法数量
 
         @cache
-        def dfs(l: int, r: int, v: int) -> int:
-            if l >= r:
+        def dfs(i: int, j: int) -> int:
+            if i < 0:
                 return 0
+            if j <= 0:
+                return 0
+            if i == 0:
+                if j == nums[0]:
+                    return 1
+                else:
+                    return 0
             res = 0
-            if nums[l] + nums[l + 1] == v:
-                res = max(res, dfs(l + 2, r) + 1)
-            if nums[r] + nums[r - 1] == v:
-                res = max(res, dfs(l, r - 2))
-            if nums[r] + nums[l] == v:
-                res = max(res, dfs(l + 1, r - 1))
+            # 选当前元素
+            if j >= nums[i]:
+                res += dfs(i - 1, j - nums)
+                res %= mod
             return res
-
         ans = 0
-        res1 = dfs(1, n - 2, nums[-1] + nums[0])
-        res2 = dfs(0, n - 3, nums[-1] + nums[-2])
-        res3 = dfs(2, n - 1, nums[0] + nums[1])
-        ans = max(res1 + 1, res2 + 1, res3 + 1)
+        for i in range(0, n):
+            ans += dfs(i, k)
+            ans %= mod
+        return ans
+        
 
 
 if __name__ == '__main__':
