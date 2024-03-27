@@ -55,22 +55,19 @@ class Solution {  // 中序遍历迭代法, 尽可能把左子树存进去
 class Solution {  // 后序遍历迭代法
    public:
     vector<int> postorderTraversal(TreeNode* root) {
-        if (not root) return {};
+        if (root == nullptr) return {};
         vector<int> ans;
         // 后序就是类似前序倒过来, RL -> LR
-        stack<TreeNode*> st1, st2;
-        st1.push(root);
-        while (st1.size()) {
-            auto node = st1.top();
-            st1.pop();
-            st2.push(node);
-            if (node->left) st1.push(node->left);
-            if (node->right) st1.push(node->right);
+        stack<TreeNode*> st;
+        st.push(root);
+        while (st.size()) {
+            auto node = st.top();
+            st.pop();
+            ans.push_back(node->val);
+            if (node->left) st.push(node->left);
+            if (node->right) st.push(node->right);
         }
-        while (st2.size()) {
-            ans.push_back(st2.top()->val);
-            st2.pop();
-        }
+        reverse(ans.begin(), ans.end());
         return ans;
     }
 };
