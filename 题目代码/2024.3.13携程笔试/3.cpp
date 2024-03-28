@@ -182,8 +182,63 @@ void mydebug(const char* format, Head H, Tail... T) {
 static constexpr long long mod = 998244353;
 // static constexpr long long mod = 1000000007;
 
-void solve() {}
-
+vector<string> split(typename string::const_iterator begin, typename string::const_iterator end, char val) {
+    vector<string> res;
+    string cur = "";
+    for (auto it = begin; it != end; it++) {
+        if (*it == val) {
+            res.push_back(cur);
+            cur.clear();
+        } else
+            cur.push_back(*it);
+    }
+    res.push_back(cur);
+    return res;
+}
+PII calc(const string& s) {
+    VI ans(2);
+    int i = 0;
+    while (s[i] != '(') ++i;
+    int num = stoi(s.substr(0, i));
+    ++i;
+    int j = s.size() - 1;
+    --j;
+    int f = stoi(s.substr(i, j - i + 1));
+    return PII(num, f);
+}
+void solve() {
+    string s;
+    cin >> s;
+    vector<string> vec = split(s.begin(), s.end(), ',');
+    vec[0] = vec[0].substr(1);
+    vec.back().pop_back();
+    VPII a;
+    for (auto s : vec) {
+        PII res = calc(s);
+        a.push_back(res);
+    }
+    VPII ans;
+    int i = 0;
+    while (i < a.size()) {
+        int j = i;
+        int x = a[i].first, y = 0;
+        while (a[j].first == a[i].first) {
+            y += a[j].second;
+            ++j;
+        }
+        i = j;
+        ans.push_back(PII(x, y));
+    }
+    string t = "[";
+    for (auto& [x, y] : ans) {
+        t += to_string(x);
+        t += '(';
+        t += to_string(y);
+        t += "),";    
+    }
+    t.back() = ']';
+    cout << t << endl;
+}
 signed main() {
     std::ios::sync_with_stdio(0), std::cout.tie(0), std::cin.tie(0);
     int T = 1;

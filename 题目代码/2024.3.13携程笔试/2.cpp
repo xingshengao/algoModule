@@ -182,7 +182,23 @@ void mydebug(const char* format, Head H, Tail... T) {
 static constexpr long long mod = 998244353;
 // static constexpr long long mod = 1000000007;
 
-void solve() {}
+void solve() {
+    int n;
+    cin >> n;
+    VI a(n);
+    for (int i = 0; i < n; ++i) cin >> a[i];
+    VI b(a);
+    sort(all(b));
+    VI ps(n + 1);
+    for (int i = 0; i < n; ++i) ps[i + 1] = ps[i] + b[i];
+    for (int i = 0; i < n; ++i) {
+        int x = a[i];
+        int idx = lower_bound(b.begin(), b.end(), x) - b.begin();
+        // [0: idx] 要增大， [idx, n - 1]要变小
+        int s = (idx + 1) * x - (ps[idx + 1] - ps[0]) + (ps[n] - ps[idx]) - (n - idx) * x;
+        cout << s << endl;
+    }
+}
 
 signed main() {
     std::ios::sync_with_stdio(0), std::cout.tie(0), std::cin.tie(0);

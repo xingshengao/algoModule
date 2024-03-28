@@ -181,15 +181,77 @@ void mydebug(const char* format, Head H, Tail... T) {
 
 static constexpr long long mod = 998244353;
 // static constexpr long long mod = 1000000007;
+// 塔子哥想将一棵树的所有结点的值变成奇偶相同。但是他每次只能选择两个相邻节点使它们的值同时增加1。塔子哥想知道他能做到吗
 
-void solve() {}
-
+// 塔子哥有q棵树
 signed main() {
-    std::ios::sync_with_stdio(0), std::cout.tie(0), std::cin.tie(0);
-    int T = 1;
-    // cin >> T;
-    while (T--) {
-        solve();
+    int q;
+    cin >> q;
+    for (int i = 0; i < q; ++i) {
+        int n;
+        cin >> n;
+        vector<int> nums(n);
+        for (int j = 0; j < n; ++j) {
+            char c;
+            cin >> c;
+            nums[j] = c % 2;
+        }
+
+        unordered_map<int, vector<int>> graph;
+        int ans = 0;
+        for (int num : nums) {
+            ans ^= num;
+        }
+
+        if (ans != 0) {
+            cout << "No" << endl;
+            continue;
+        }
+
+        unordered_map<int, int> indegree;
+        for (int j = 0; j < n - 1; ++j) {
+            int u, v;
+            cin >> u >> v;
+            u -= 1;
+            v -= 1;
+            graph[u].push_back(v);
+            graph[v].push_back(u);
+            indegree[u] += 1;
+            indegree[v] += 1;
+        }
+
+        deque<pair<int, int>> dq;
+        for (auto& entry : indegree) {
+            if (entry.second == 1) {
+                dq.emplace_back(entry.first, -1);
+            }
+        }
+
+        vector<pair<int, int>> ops;
+        while (!dq.empty()) {
+            int node = dq.front().first;
+            int fa = dq.front().second;
+            dq.pop_front();
+            if (nums[node] != 0) {
+                for (int next : graph[node]) {
+                    if (next != fa) {
+                        ops.emplace_back(node, next);
+                        indegree[next] -= 1;
+                        if (indegree[next] == 1) {
+                            dq.emplace_back(next, node);
+                        }
+                        nums[node] ^= 1;
+                        nums[next] ^= 1;
+                    }
+                }
+            }
+        }
+
+        cout << "Yes" << endl;
+        cout << ops.size() << endl;
+        for (auto& op : ops) {
+            cout << op.first + 1 << " " << op.second + 1 << endl;
+        }
     }
     return 0;
 }

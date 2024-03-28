@@ -182,7 +182,34 @@ void mydebug(const char* format, Head H, Tail... T) {
 static constexpr long long mod = 998244353;
 // static constexpr long long mod = 1000000007;
 
-void solve() {}
+void solve() {
+    string s;
+    cin >> s;
+    int n = s.size();
+    int y = 0, o = 0, u = 0;
+    string t;
+    for (int i = 0; i < n; ++i) {
+        if (s[i] == 'y')
+            ++y;
+        else if (s[i] == 'o')
+            ++o;
+        else if (s[i] == 'u')
+            ++u;
+        else
+            t += s[i];
+    }
+    int mn = min({y, o, u});
+    y -= mn, o -= mn, u -= mn;
+    string ans = "";
+    for (int i = 0; i < mn; ++i) {
+        ans += "you";
+    }
+    ans += string(y, 'y');
+    ans += string(o, 'o');
+    ans += string(u, 'u');
+    ans += t;
+    print(ans);
+}
 
 signed main() {
     std::ios::sync_with_stdio(0), std::cout.tie(0), std::cin.tie(0);
