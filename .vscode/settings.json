@@ -1,4 +1,6 @@
 {
+    "C_Cpp.intelliSenseEngine": "Default",
+    "editor.suggest.snippetsPreventQuickSuggestions": true,
     "files.associations": {
         "tuple": "cpp",
         "*.tcc": "cpp",
