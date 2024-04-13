@@ -181,61 +181,14 @@ void mydebug(const char* format, Head H, Tail... T) {
 
 static constexpr long long mod = 998244353;
 // static constexpr long long mod = 1000000007;
-struct DSU {
-    vector<int> f, siz;
-    DSU() {}
-    DSU(int n) { init(n); }
-    void init(int n) {
-        f.resize(n);
-        iota(f.begin(), f.end(), 0);
-        siz.assign(n, 1);
-    }
-    int find(int x) {
-        while (x != f[x]) {
-            x = f[x] = f[f[x]];
-        }
-        return x;
-    }
-    bool same(int x, int y) { return find(x) == find(y); }
-    bool merge(int x, int y) {
-        x = find(x);
-        y = find(y);
-        if (x == y) {
-            return false;
-        }
-        siz[x] += siz[y];
-        f[y] = x;
-        return true;
-    }
-    int size(int x) { return siz[find(x)]; }
-};
 
+// 一个数组， 随意排序，拆成两部分，两部分的GCD最大是多少
 void solve() {
-    // 因为入度与出度都是1，最终肯定是一个个的环，直接并查集处理即可, 答案累加是点数的平方，连通块内的所有点都可以到达
     int n;
     cin >> n;
-    vector<int> a(n);
-    for (int i = 0; i < n; ++i) {
-        int x;
-        cin >> x;
-        x--;
-        a[i] = x;
-    }
-    DSU dsu(n);
-    for (int i = 0; i < n; ++i) {
-        int u = i, v = a[i];
-        dsu.merge(u, v);
-    }
-    map<int, int> mp;
-    for (int i = 0; i < n; ++i) {
-        int fa = dsu.find(i);
-        mp[fa]++;
-    }
-    LL ans = 0;
-    for (auto& [k, v] : mp) {
-        ans += v * v;
-    }
-    cout << ans << endl;
+    VI a(n);
+    for (int i = 0; i < n; ++i) cin >> a[i];
+    // 等解析了
 }
 
 signed main() {

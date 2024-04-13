@@ -181,67 +181,41 @@ void mydebug(const char* format, Head H, Tail... T) {
 
 static constexpr long long mod = 998244353;
 // static constexpr long long mod = 1000000007;
-struct DSU {
-    vector<int> f, siz;
-    DSU() {}
-    DSU(int n) { init(n); }
-    void init(int n) {
-        f.resize(n);
-        iota(f.begin(), f.end(), 0);
-        siz.assign(n, 1);
-    }
-    int find(int x) {
-        while (x != f[x]) {
-            x = f[x] = f[f[x]];
-        }
-        return x;
-    }
-    bool same(int x, int y) { return find(x) == find(y); }
-    bool merge(int x, int y) {
-        x = find(x);
-        y = find(y);
-        if (x == y) {
-            return false;
-        }
-        siz[x] += siz[y];
-        f[y] = x;
-        return true;
-    }
-    int size(int x) { return siz[find(x)]; }
-};
-
+// 给定输入字符矩阵，判断是T还是L
 void solve() {
-    // 因为入度与出度都是1，最终肯定是一个个的环，直接并查集处理即可, 答案累加是点数的平方，连通块内的所有点都可以到达
-    int n;
-    cin >> n;
-    vector<int> a(n);
-    for (int i = 0; i < n; ++i) {
-        int x;
-        cin >> x;
-        x--;
-        a[i] = x;
+    int m, n;
+    cin >> m >> n;
+    vector<string> g(m);
+    for (int i = 0; i < m; ++i) cin >> g[i];
+    for (int i = 0; i < m; ++i) {
+        for (int j = 0; j < n; ++j) {
+            if (g[i][j] == '*') {
+                bool up = (i - 1 >= 0) && g[i - 1][j] == '*';
+                bool down = (i + 1 < m) && g[i + 1][j] == '*';
+                bool left = (j - 1 >= 0) && g[i][j - 1] == '*';
+                bool right = (j + 1 < n) && g[i][j + 1] == '*';
+                int cnt = 0;
+                cnt += up;
+                cnt += down;
+                cnt += left;
+                cnt += right;
+                if (cnt >= 3) {
+                    cout << "T" << endl;
+                    return;
+                }
+                if (up && left || up && right || down && left || down && right) {
+                    cout << "L" << endl;
+                    return;
+                }
+            }
+        }
     }
-    DSU dsu(n);
-    for (int i = 0; i < n; ++i) {
-        int u = i, v = a[i];
-        dsu.merge(u, v);
-    }
-    map<int, int> mp;
-    for (int i = 0; i < n; ++i) {
-        int fa = dsu.find(i);
-        mp[fa]++;
-    }
-    LL ans = 0;
-    for (auto& [k, v] : mp) {
-        ans += v * v;
-    }
-    cout << ans << endl;
 }
 
 signed main() {
     std::ios::sync_with_stdio(0), std::cout.tie(0), std::cin.tie(0);
     int T = 1;
-    // cin >> T;
+    cin >> T;
     while (T--) {
         solve();
     }
