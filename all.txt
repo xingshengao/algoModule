@@ -179,7 +179,20 @@ void mydebug(const char* format, Head H, Tail... T) {
 }
 #define debug(...) mydebug(#__VA_ARGS__, __VA_ARGS__)
 
+// static constexpr long long mod = 998244353;
+static constexpr long long mod = 1000000007;
 
+void solve() {}
+
+signed main() {
+    std::ios::sync_with_stdio(0), std::cout.tie(0), std::cin.tie(0);
+    int T = 1;
+    // cin >> T;
+    while (T--) {
+        solve();
+    }
+    return 0;
+}
 
 
 
@@ -261,6 +274,62 @@ void LiSanHua() {  // 离散化的代码
         mp[A[i]] = i + 1;
     }
     Fenwick<LL> fen(A.size() + 1);
+}
+
+
+// Z_function
+std::vector<int> z_function(std::string s) {
+    int n = (int)s.length();
+    std::vector<int> z(n);
+    for (int i = 1, l = 0, r = 0; i < n; ++i) {
+        if (i <= r && z[i - l] < r - i + 1) {
+            z[i] = z[i - l];
+        } else {
+            z[i] = max(0LL, r - i + 1);
+            while (i + z[i] < n && s[z[i]] == s[i + z[i]]) ++z[i];
+        }
+        if (i + z[i] - 1 > r) l = i, r = i + z[i] - 1;
+    }
+    return z;
+}
+
+
+
+
+
+
+// 使用KMP算法求出在text中, pattern出现的所有下标
+std::vector<int> kmp(std::string& text, std::string& pattern) {
+    int m = pattern.length();
+    std::vector<int> pi(m);
+    int c = 0;
+    for (int i = 1; i < m; i++) {
+        char v = pattern[i];
+        while (c && pattern[c] != v) {
+            c = pi[c - 1];
+        }
+        if (pattern[c] == v) {
+            c++;
+        }
+        pi[i] = c;
+    }
+
+    std::vector<int> res;
+    c = 0;
+    for (int i = 0; i < text.length(); i++) {
+        char v = text[i];
+        while (c && pattern[c] != v) {
+            c = pi[c - 1];
+        }
+        if (pattern[c] == v) {
+            c++;
+        }
+        if (c == m) {
+            res.push_back(i - m + 1);
+            c = pi[c - 1];
+        }
+    }
+    return res;
 }
 
 
@@ -526,65 +595,6 @@ void solve() {
 
 
 
-
-// Z_function
-std::vector<int> z_function(std::string s) {
-    int n = (int)s.length();
-    std::vector<int> z(n);
-    for (int i = 1, l = 0, r = 0; i < n; ++i) {
-        if (i <= r && z[i - l] < r - i + 1) {
-            z[i] = z[i - l];
-        } else {
-            z[i] = max(0LL, r - i + 1);
-            while (i + z[i] < n && s[z[i]] == s[i + z[i]]) ++z[i];
-        }
-        if (i + z[i] - 1 > r) l = i, r = i + z[i] - 1;
-    }
-    return z;
-}
-
-
-
-
-
-
-// 使用KMP算法求出在text中, pattern出现的所有下标
-std::vector<int> kmp(std::string& text, std::string& pattern) {
-    int m = pattern.length();
-    std::vector<int> pi(m);
-    int c = 0;
-    for (int i = 1; i < m; i++) {
-        char v = pattern[i];
-        while (c && pattern[c] != v) {
-            c = pi[c - 1];
-        }
-        if (pattern[c] == v) {
-            c++;
-        }
-        pi[i] = c;
-    }
-
-    std::vector<int> res;
-    c = 0;
-    for (int i = 0; i < text.length(); i++) {
-        char v = text[i];
-        while (c && pattern[c] != v) {
-            c = pi[c - 1];
-        }
-        if (pattern[c] == v) {
-            c++;
-        }
-        if (c == m) {
-            res.push_back(i - m + 1);
-            c = pi[c - 1];
-        }
-    }
-    return res;
-}
-
-
-
-
 // split()
 vector<string> split(typename string::const_iterator begin, typename string::const_iterator end, char val) {
     vector<string> res;
@@ -691,6 +701,36 @@ class StringEncode {
     long long get_code(long long l, long long r) { return ((preFix[r + 1] - preFix[l] * mul[r - l + 1]) % mod + mod) % mod; }
 };
 
+// 子数组或模板
+class Solution1 {
+   public:
+    vector<int> smallestSubarrays(vector<int>& nums) {
+        int n = nums.size();
+        vector<int> ans(n);
+        typedef pair<int, int> PII;
+        vector<PII> vec;  // 存储以i为左端点的按位或的值 + 对应子数组右端点的最小值
+        // 这样在遍历时ors值最大的元素对应的子数组右端点的最小值, 就是要求的最短子数组的右端点
+        for (int i = n - 1; i >= 0; --i) {
+            vec.emplace_back(0, i);                 // 小集合总是在后面插入的, 因此vec是递减的
+            for (int j = 0; j < vec.size(); ++j) {  // 更新集合, 把nums[i]插入集合
+                vec[j].first |= nums[i];
+            }
+            // 原地去重, 类似leetcode26题目
+            int j = 0, k = 0;
+            for (; j < vec.size(); ++j) {
+                if (vec[k].first != vec[j].first) {  // 不重复, 先增加k
+                    vec[++k] = vec[j];
+                } else {  // 有重复, 只记录最小的下标, k不递增, 合并相同值, 下标取最小的
+                    vec[k].second = vec[j].second;
+                }
+            }
+            vec.resize(k + 1);  // k 是已去重的最后一个元素下标, 因此保留k+1个元素
+            // 本题只用到了vec[0], 即最大的或值, 如果题目改为任意数字, 可以在vec中查找
+            ans[i] = vec[0].second - i + 1;
+        }
+        return ans;
+    }
+};
 
 
 
@@ -1559,27 +1599,42 @@ class Solution {
     }
 };
 
+struct Primes {
+    vector<int> lpf, lpfcnt, primes, remaining;
 
-
-
-
-
-
-
-
-
-
-static constexpr long long mod = 998244353;
-// static constexpr long long mod = 1000000007;
-
-void solve() {}
-
-signed main() {
-    std::ios::sync_with_stdio(0), std::cout.tie(0), std::cin.tie(0);
-    int T = 1;
-    cin >> T;
-    while (T--) {
-        solve();
+    Primes(int n) {
+        lpf.resize(n + 1);
+        lpfcnt.resize(n + 1);
+        remaining.resize(n + 1);
+        for (int i = 2; i <= n; i++) {
+            if (!lpf[i]) {
+                lpf[i] = i;
+                lpfcnt[i] = remaining[i] = 1;
+                primes.push_back(i);
+            }
+            for (int j = 0; i * primes[j] <= n; j++) {
+                int val = i * primes[j];
+                lpf[val] = primes[j];
+                lpfcnt[val] = lpfcnt[primes[j]] + (lpf[i] == primes[j] ? lpfcnt[i] : 0);
+                remaining[val] = (lpf[i] == primes[j]) ? remaining[i] : i;
+                if (primes[j] == lpf[i]) break;
+            }
+        }
     }
-    return 0;
-}
+    // 判断是不是质数
+    bool isprime(long long x) {
+        if (x < 2) return false;
+        if (x < (int)lpf.size()) return lpf[x] == x;
+        for (long long i = 2; i * i <= x; i++) {
+            if (!(x % i)) return false;
+        }
+        return true;
+    }
+
+    // 返回primes.factorise(N), 返回这个数字的质因子及其数量例如100返回{(2, 2), (5, 2)}
+    vector<pair<int, int>> factorise(int x) {
+        vector<pair<int, int>> factors;
+        for (; x > 1; x = remaining[x]) factors.emplace_back(lpf[x], lpfcnt[x]);
+        return factors;
+    }
+} primes(1e6);
