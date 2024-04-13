@@ -181,8 +181,57 @@ void mydebug(const char* format, Head H, Tail... T) {
 
 static constexpr long long mod = 998244353;
 // static constexpr long long mod = 1000000007;
+// 塔子哥很喜欢做蛋糕，做蛋糕有k个步骤，
+// 第i个步骤有ci个人可以完成，每个人只能做同时做一个蛋糕，并且只会那一个步骤，
+// 也就是最多可 以同时有ci个蛋糕在进行第i个步骤。
+// 一个蛋糕的第i个步骤需要tii的时间。
+// 小红想要做n个蛋糕，问最少需要多少时间可以完成。
 
-void solve() {}
+// 规划使得总时间最短
+// 思路，模拟：小根堆
+// 第i个步骤要想执行，必须要按顺序执行完前i−1个步骤因此对于每个蛋糕来说，
+// 最先执行的一定是第1个步骤，我们可以将这n个蛋糕的初始状态存到一个小根堆中，
+// 然后每次尝试去推进当前耗时最小的一个蛋糕，去执行第k+1个步骤，
+// 并更新当前蛋糕所耗费的时间以及全局最大时间，如果当前蛋糕已经完成了所有步骤，
+// 就将其弹出小根堆中，继续去做下一个蛋糕即可，具体可以参考代码细节以及相关注释。
+
+void solve() {
+    int n, k;
+    cin >> n >> k;                        // 输入蛋糕数量和制作步骤数量
+    vector<int> size(k), ti(k), wait(k);  // 初始化每个步骤的人数上限、所需时间和等待队列长度
+    for (int i = 0; i < k; i++) {
+        cin >> size[i] >> ti[i];  // 输入每个步骤的人数上限和所需时间
+    }
+    int ans = 0;                                       // 初始化完成所有蛋糕所需的最小时间
+    priority_queue<PII, vector<PII>, greater<PII>> q;  // 初始化优先队列，按完成时间升序排列
+    for (int i = 0; i < n; i++) {
+        q.push({0, -1});  // 初始时，所有蛋糕都未开始处理
+    }
+    while (!q.empty()) {
+        auto nw = q.top();  // 取出当前最早完成的步骤
+        q.pop();
+        ans = nw.first;                             // 更新完成时间
+        int idx = nw.second;                        // 当前步骤索引
+        if (idx != -1) {                            // 如果不是新的蛋糕开始
+            if (wait[idx] > 0) {                    // 如果当前步骤有等待队列
+                q.push({nw.first + ti[idx], idx});  // 添加当前步骤的下一次完成时间
+                --wait[idx];                        // 等待队列长度减一
+            } else {
+                ++size[idx];  // 没有等待队列，当前步骤可用人数增加
+            }
+        }
+        if (idx + 1 < k) {                          // 如果还有下一个步骤
+            ++idx;                                  // 移至下一步骤
+            if (size[idx] > 0) {                    // 如果下一步骤有可用人手
+                --size[idx];                        // 占用一个人手
+                q.push({nw.first + ti[idx], idx});  // 计划下一步骤的完成时间
+            } else {
+                ++wait[idx];  // 如果下一步骤没有可用人手，当前蛋糕进入等待队列
+            }
+        }
+    }
+    cout << ans << endl;  // 输出完成所有蛋糕所需的最小时间
+}
 
 signed main() {
     std::ios::sync_with_stdio(0), std::cout.tie(0), std::cin.tie(0);

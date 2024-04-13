@@ -181,15 +181,42 @@ void mydebug(const char* format, Head H, Tail... T) {
 
 static constexpr long long mod = 998244353;
 // static constexpr long long mod = 1000000007;
+// 塔子哥在一个广场上散步，广场上有n×n 个格子。
+// 每个格子都有一个箭头，^表示走到这个格子后要向上走，v表示走到这个格子后要向下走，
+// <表示走到这个格子后要向左走，>表示走到这个格子后要向右走。
+// 塔子哥每次离开一个格子后，离开的那个格子的箭头方向就会变成反向，即^变成v，v变成^,<变成>，>变<。
+// 给出塔子哥当前的位置，她想知道她需要走多少步能走出广场?若塔子哥永远走不出广场，则输出 -1。
 
-void solve() {}
-
+const int N = 110;
+int n, sx, sy;
+char g[N][N];
+bool vis[N][N];                                                              // 标记当前点是否被访问过
+unordered_map<char, int> dirc_1 = {{'^', 0}, {'v', 1}, {'<', 2}, {'>', 3}};  // 上下左右对应的四个方向
+unordered_map<int, char> dirc_2 = {{0, '^'}, {1, 'v'}, {2, '<'}, {3, '>'}};  // 四个方向对应的上下左右映射
+int dx[4] = {-1, 1, 0, 0}, dy[4] = {0, 0, -1, 1};                            // 上下左右四个方向分别对应横纵坐标的偏移量
 signed main() {
-    std::ios::sync_with_stdio(0), std::cout.tie(0), std::cin.tie(0);
-    int T = 1;
-    // cin >> T;
-    while (T--) {
-        solve();
+    cin >> n;
+    for (int i = 0; i < n; i++) {
+        for (int j = 0; j < n; j++) {
+            cin >> g[i][j];
+        }
     }
+    cin >> sx >> sy;
+    sx--;
+    sy--;
+    int res = 0;
+    while (res <= 1e6) {
+        int d = dirc_1[g[sx][sy]];  // 查看当前方向
+        g[sx][sy] = dirc_2[d ^ 1];  // 离开当前位置后新的方向
+        int a = dx[d] + sx, b = dy[d] + sy;
+        res++;
+        if (a < 0 || a >= n || b < 0 || b >= n) {
+            cout << res << endl;
+            return 0;
+        }
+        sx = a;
+        sy = b;
+    }
+    puts("-1");  // 无法走出迷宫
     return 0;
 }
