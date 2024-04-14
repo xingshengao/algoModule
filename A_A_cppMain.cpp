@@ -179,8 +179,8 @@ void mydebug(const char* format, Head H, Tail... T) {
 }
 #define debug(...) mydebug(#__VA_ARGS__, __VA_ARGS__)
 
-static constexpr long long mod = 998244353;
-// static constexpr long long mod = 1000000007;
+// static constexpr long long mod = 998244353;
+static constexpr long long mod = 1000000007;
 
 void solve() {}
 

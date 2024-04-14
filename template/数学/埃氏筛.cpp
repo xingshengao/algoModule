@@ -1,18 +1,7 @@
 // 质数筛
 #include <bits/stdc++.h>
 using namespace std;
-// 预处理所有质因子
-const int N = 100010;
-vector<int> fac[N + 10];
-// 预处理每个数的质因子
-int init = []() {
-    for (int i = 2; i <= N; ++i) {
-        if (fac[i].size() == 0) {
-            for (int j = i; j <= N; j += i) fac[j].push_back(i);
-        }
-    }
-    return 0;
-}();
+
 // 质数筛
 void solve() {
     const int N = 1e5 + 1;
@@ -29,22 +18,22 @@ void solve() {
         }
     }
 }
-// // 质数筛
-// const int N = 1000100;
-// int isPrime[N];
-// int init = []() {
-//     for (int i = 0; i < N; ++i) isPrime[i] = 1;
-//     isPrime[1] = 1;
-//     isPrime[2] = 1;
-//     for (int i = 2; i * i < N; ++i) {
-//         if (isPrime[i]) {
-//             for (int j = i * i; j < N; j += i) {
-//                 isPrime[j] = 0;
-//             }
-//         }
-//     }
-//     return 0;
-// }();
-int main() {
+
+
+// 质数筛
+const int N = 1000100;
+int isPrime[N];
+int init = []() {
+    for (int i = 0; i < N; ++i) isPrime[i] = 1;
+    isPrime[1] = 0;
+    isPrime[2] = 1;
+    for (int i = 2; i * i < N; ++i) {
+        if (isPrime[i]) {
+            for (int j = i * i; j < N; j += i) {
+                isPrime[j] = 0;
+            }
+        }
+    }
     return 0;
-}
+}();
+

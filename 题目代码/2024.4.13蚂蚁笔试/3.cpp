@@ -183,12 +183,29 @@ static constexpr long long mod = 998244353;
 // static constexpr long long mod = 1000000007;
 
 // 一个数组， 随意排序，拆成两部分，两部分的GCD最大是多少
+// 定义dp[i][j]表示前i个数字是否可以构成和j
+// 01背包+gcd
+int gcd(int a, int b) { return b == 0 ? a : gcd(b, a % b); }
 void solve() {
     int n;
     cin >> n;
-    VI a(n);
+    vector<int> a(n);
     for (int i = 0; i < n; ++i) cin >> a[i];
-    // 等解析了
+    LL sum = accumulate(all(a), 0LL);
+    vector<int> dp(sum / 2 + 1, 0);
+    dp[0] = 1;
+    for (int i = 0; i < n; ++i) {
+        for (int j = sum / 2; j >= a[i]; --j) {
+            dp[j] |= dp[j - a[i]];
+        }
+    }
+    int res = 1;
+    for (int i = 1; i <= sum / 2; ++i) {
+        if (dp[i] && dp[sum - i]) {
+            res = max(res, gcd(i, sum - i));
+        }
+    }
+    cout << res << endl;
 }
 
 signed main() {

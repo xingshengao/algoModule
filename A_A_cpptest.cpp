@@ -177,11 +177,10 @@ template <class T>
 bool chmax(T& a, const T& b) {
     return a < b ? a = b, 1 : 0;
 }  // set a = max(a,b)
-
 vector<pair<int, int>> dirs = {{0, 1}, {1, 0}, {0, -1}, {-1, 0}};
 int dx[4] = {0, 1, 0, -1}, dy[4] = {1, 0, -1, 0};
-typedef pair<long long, long long> PLL;
 typedef pair<int, int> PII;
+typedef pair<long long, long long> PLL;
 static constexpr long long mod = 1e9 + 7;
 using LL = long long;
 
