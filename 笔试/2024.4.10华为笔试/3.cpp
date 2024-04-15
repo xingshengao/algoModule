@@ -79,20 +79,6 @@ bool isup(char x) { return x >= 'A' && x <= 'Z'; }
 bool isdown(char x) { return x >= 'a' && x <= 'z'; }
 bool islet(char x) { return isup(x) || isdown(x); }
 
-// string 分割
-vector<string> split(typename string::const_iterator begin, typename string::const_iterator end, char val) {
-    vector<string> res;
-    string cur = "";
-    for (auto it = begin; it != end; it++) {
-        if (*it == val) {
-            res.push_back(cur);
-            cur.clear();
-        } else
-            cur.push_back(*it);
-    }
-    res.push_back(cur);
-    return res;
-}
 struct ListNode {
     int val;
     ListNode* next;
@@ -192,11 +178,76 @@ void mydebug(const char* format, Head H, Tail... T) {
     mydebug(format + 1, T...);
 }
 #define debug(...) mydebug(#__VA_ARGS__, __VA_ARGS__)
-
+// string 分割
+vector<string> split(typename string::const_iterator begin, typename string::const_iterator end, char val) {
+    vector<string> res;
+    string cur = "";
+    for (auto it = begin; it != end; it++) {
+        if (*it == val) {
+            res.push_back(cur);
+            cur.clear();
+        } else
+            cur.push_back(*it);
+    }
+    res.push_back(cur);
+    return res;
+}
 // static constexpr long long mod = 998244353;
 static constexpr long long mod = 1000000007;
+// 公有云的某个region内，N个网络节点组网情况可以使用一个n* n的矩阵matrix表示，在这个组网图中，matrix[i][j] = p 时，表示用户在编号为
+// i的节点访问编号为j的节点时，必须在 i节点上具有>=p
+// 的权限等级(p=0时表示无法通过第i节点访问j节点)，如果用户成功访问了j节点，那么它在j节点上的权限等级调整为 P。
 
-void solve() {}
+// exposed
+// 为一个整数数组，表示暴露在公网上的网络节点的编号列表。某天扫描发现这批暴需在公网的节点存在被外部恶意攻击风险且该攻击会影响到可访问的其他节点，并可以持续传递进行攻击，被恶意攻击的节点从公网访问时，攻击者获得了ROOT
+// 权限(权限等级为10，即最大值)。
+
+// 小李是一名网络安全工程师，为了在有限的时间内尽可能的减少故障带来的损失，需要立即将某个节点从公网"下线"。
+
+// 假设攻击结束时，被攻击过的节点数量为R，请帮小李计算出将哪个节点下线能使R尽可能小，如果答案有多个节点，返回索引最小的那个节点。
+struct DSU {
+    vector<int> f, siz;
+    DSU() {}
+    DSU(int n) { init(n); }
+    void init(int n) {
+        f.resize(n);
+        iota(f.begin(), f.end(), 0);
+        siz.assign(n, 1);
+    }
+    int find(int x) {
+        while (x != f[x]) {
+            x = f[x] = f[f[x]];
+        }
+        return x;
+    }
+    bool same(int x, int y) { return find(x) == find(y); }
+    bool merge(int x, int y) {
+        x = find(x);
+        y = find(y);
+        if (x == y) {
+            return false;
+        }
+        siz[x] += siz[y];
+        f[y] = x;
+        return true;
+    }
+    int size(int x) { return siz[find(x)]; }
+};
+void solve() {
+    int n;
+    cin >> n;
+    VVI grid(n, VI(n));
+    for (int i = 0; i < n; ++i) {
+        for (int j = 0; j < n; ++j) {
+            cin >> grid[i][j];
+        }
+    }
+    VI vec;
+    int a;
+    while (std::cin >> a) vec.push_back(a);
+    // 将哪个节点下线可以使得被攻击过的节点尽可能小
+    // 数据范围很小，直接枚举就可以了
+}
 
 signed main() {
     std::ios::sync_with_stdio(0), std::cout.tie(0), std::cin.tie(0);

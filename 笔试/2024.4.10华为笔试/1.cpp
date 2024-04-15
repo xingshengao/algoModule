@@ -79,20 +79,6 @@ bool isup(char x) { return x >= 'A' && x <= 'Z'; }
 bool isdown(char x) { return x >= 'a' && x <= 'z'; }
 bool islet(char x) { return isup(x) || isdown(x); }
 
-// string 分割
-vector<string> split(typename string::const_iterator begin, typename string::const_iterator end, char val) {
-    vector<string> res;
-    string cur = "";
-    for (auto it = begin; it != end; it++) {
-        if (*it == val) {
-            res.push_back(cur);
-            cur.clear();
-        } else
-            cur.push_back(*it);
-    }
-    res.push_back(cur);
-    return res;
-}
 struct ListNode {
     int val;
     ListNode* next;
@@ -192,11 +178,73 @@ void mydebug(const char* format, Head H, Tail... T) {
     mydebug(format + 1, T...);
 }
 #define debug(...) mydebug(#__VA_ARGS__, __VA_ARGS__)
-
+vector<string> split(typename string::const_iterator begin, typename string::const_iterator end, char val) {
+    vector<string> res;
+    string cur = "";
+    for (auto it = begin; it != end; it++) {
+        if (*it == val) {
+            res.push_back(cur);
+            cur.clear();
+        } else
+            cur.push_back(*it);
+    }
+    res.push_back(cur);
+    return res;
+}
 // static constexpr long long mod = 998244353;
 static constexpr long long mod = 1000000007;
-
-void solve() {}
+// 编写一个程序为某云服务计算客户话单，输入为某云服务的计费日志和各种计费因子的计费单价的列表，
+// 计费日志内容包含时间戳、客户标识、计费因子、计费时长4个字段。
+// 日志中如果同一客户同一计费因子在相同时间戳上报多次话单只能计费一次，
+// 选先上报的日志计费。计算每个客户的话单总费用。
+void solve() {
+    int n;
+    cin >> n;  // 日志条数
+    map<pair<int, string>, set<string>> time_core_to_user;
+    map<string, vector<pair<string, int>>> user_to_core_last;
+    for (int i = 0; i < n; ++i) {
+        int time;     // 时间戳
+        string user;  // 客户标识
+        string core;  // 计费因子
+        int last;     // 计费时长，0-100
+        string s;
+        cin >> s;
+        auto vec = split(s.begin(), s.end(), ',');
+        time = stoi(vec[0]);
+        user = vec[1];
+        core = vec[2];
+        last = stoi(vec[3]);
+        if (last > 100) last = 0;
+        if (!time_core_to_user.count(make_pair(time, core)) || !time_core_to_user[make_pair(time, core)].count(user)) {
+            time_core_to_user[make_pair(time, core)].insert(user);
+            user_to_core_last[user].push_back(make_pair(core, last));
+        }
+    }
+    int m;
+    cin >> m;  // 记费因子数量
+    map<string, int> core_to_cost;
+    for (int i = 0; i < m; ++i) {
+        string s;
+        string core;
+        int a;
+        cin >> s;
+        auto vec = split(s.begin(), s.end(), ',');
+        core = vec[0];
+        a = stoi(vec[1]);
+        core_to_cost[core] = a;
+    }
+    map<string, int> ans;
+    for (auto& [user, vec] : user_to_core_last) {
+        int sum = 0;
+        for (auto& [core, last] : vec) {
+            sum += core_to_cost[core] * last;
+        }
+        ans[user] = sum;
+    }
+    for (auto& [user, sum] : ans) {
+        cout << user << "," << sum << endl;
+    }
+}
 
 signed main() {
     std::ios::sync_with_stdio(0), std::cout.tie(0), std::cin.tie(0);

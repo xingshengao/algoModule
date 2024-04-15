@@ -79,20 +79,6 @@ bool isup(char x) { return x >= 'A' && x <= 'Z'; }
 bool isdown(char x) { return x >= 'a' && x <= 'z'; }
 bool islet(char x) { return isup(x) || isdown(x); }
 
-// string 分割
-vector<string> split(typename string::const_iterator begin, typename string::const_iterator end, char val) {
-    vector<string> res;
-    string cur = "";
-    for (auto it = begin; it != end; it++) {
-        if (*it == val) {
-            res.push_back(cur);
-            cur.clear();
-        } else
-            cur.push_back(*it);
-    }
-    res.push_back(cur);
-    return res;
-}
 struct ListNode {
     int val;
     ListNode* next;
@@ -195,8 +181,66 @@ void mydebug(const char* format, Head H, Tail... T) {
 
 // static constexpr long long mod = 998244353;
 static constexpr long long mod = 1000000007;
+// 小明想要处理一批图片，将相似的图片分类。他首先对图片的特征采样，得到图片之间的相似度，然后按照以下规则判断图片是否可以归为一类：
 
-void solve() {}
+// 相似度>0表示两张图片相似，
+
+// 如果A和B相似，B和C相似，但A和C不相似。那么认为A和C间接相似，可以把ABC归为一类，但不计算AC的相似度
+
+// 如果A和所有其他图片都不相似，则A自己归为一类，相似度为0.给定一个大小为NxN的矩阵M存储任意两张图片的相似度，M[i][j]即为第i个图片和第j个图片的相似度，请按照"从大到小”的顺序返回每个相似类中所有图片的相似度之和。
+struct DSU {
+    vector<int> f, siz;
+    DSU() {}
+    DSU(int n) { init(n); }
+    void init(int n) {
+        f.resize(n);
+        iota(f.begin(), f.end(), 0);
+        siz.assign(n, 1);
+    }
+    int find(int x) {
+        while (x != f[x]) {
+            x = f[x] = f[f[x]];
+        }
+        return x;
+    }
+    bool same(int x, int y) { return find(x) == find(y); }
+    bool merge(int x, int y) {
+        x = find(x);
+        y = find(y);
+        if (x == y) {
+            return false;
+        }
+        siz[x] += siz[y];
+        f[y] = x;
+        return true;
+    }
+    int size(int x) { return siz[find(x)]; }
+};
+
+void solve() {
+    int n;
+    cin >> n;
+    VVI g(n, VI(n));
+    for (int i = 0; i < n; ++i) {
+        for (int j = 0; j < n; ++j) cin >> g[i][j];
+    }
+    DSU dsu(n);
+    for (int i = 0; i < n; ++i) {
+        for (int j = i + 1; j < n; ++j) {
+            if (g[i][j] > 0) dsu.merge(i, j);
+        }
+    }
+    map<int, int> mp;  // fa->边权
+    for (int i = 0; i < n; ++i) {
+        for (int j = i + 1; j < n; ++j) {
+            int fa = dsu.find(i);
+            mp[fa] += g[i][j];
+        }
+    }
+    VI ans;
+    for (auto& [_, v] : mp) ans.push_back(v);
+    for (int i = 0; i < ans.size(); ++i) cout << ans[i] << " \n"[i == ans.size() - 1];
+}
 
 signed main() {
     std::ios::sync_with_stdio(0), std::cout.tie(0), std::cin.tie(0);
