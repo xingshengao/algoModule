@@ -196,7 +196,47 @@ void mydebug(const char* format, Head H, Tail... T) {
 // static constexpr long long mod = 998244353;
 static constexpr long long mod = 1000000007;
 
-void solve() {}
+void solve() {
+    int n;
+    cin >> n;
+    string s;
+    cin >> s;
+    int q = n / 3, r = n % 3;
+    string t = "";
+    for (int i = 0; i < q; ++i) t += "PDD";
+    if (r == 0) {
+        int ans1 = 0;
+        for (int i = 0; i < t.size(); ++i) {
+            ans1 += abs(s[i] - t[i]);
+        }
+        cout << q << " " << ans1 << endl;
+    } else if (r == 1) {
+        // 总的代价-最小的一处代价
+        int ans1 = 0;
+        for (int i = 0; i < t.size(); ++i) {
+            ans1 += abs(s[i] - t[i]);
+        }
+        int ans2 = 0;
+        for (int i = 0; i < t.size(); ++i) {
+            ans2 += abs(s[i + 1] - t[i]);
+        }
+        cout << q << " " << min(ans1, ans2) << endl;
+    } else {  // r == 2
+        int ans1 = 0;
+        for (int i = 0; i < n - 2; ++i) {
+            ans1 += abs(s[i] - t[i]);
+        }
+        int ans2 = 0;
+        for (int i = 0; i < t.size(); ++i) {
+            ans2 += abs(s[i + 1] - t[i]);
+        }
+        int ans3 = 0;
+        for (int i = 0; i < t.size(); ++i) {
+            ans3 += abs(s[i + 2] - t[i]);
+        }
+        cout << q << " " << min(min(ans1, ans2), ans3) << endl;
+    }
+}
 
 signed main() {
     std::ios::sync_with_stdio(0), std::cout.tie(0), std::cin.tie(0);

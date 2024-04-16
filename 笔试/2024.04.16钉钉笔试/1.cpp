@@ -196,7 +196,19 @@ void mydebug(const char* format, Head H, Tail... T) {
 // static constexpr long long mod = 998244353;
 static constexpr long long mod = 1000000007;
 
-void solve() {}
+void solve() {
+    int n;
+    cin >> n;
+    VI a(n);
+    for (int i = 0; i < n; ++i) cin >> a[i];
+    int mx = MAX(a);
+    vector<string> g(mx, string(n, '+'));
+    for (int j = 0; j < n; ++j) {
+        int cnt = mx - a[j];
+        for (int i = 0; i < cnt; ++i) g[i][j] = '-';
+    }
+    for (int i = 0; i < mx; ++i) cout << g[i] << endl;
+}
 
 signed main() {
     std::ios::sync_with_stdio(0), std::cout.tie(0), std::cin.tie(0);

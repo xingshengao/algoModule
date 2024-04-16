@@ -194,9 +194,42 @@ void mydebug(const char* format, Head H, Tail... T) {
 #define debug(...) mydebug(#__VA_ARGS__, __VA_ARGS__)
 
 // static constexpr long long mod = 998244353;
-static constexpr long long mod = 1000000007;
+static constexpr long long mod = 1e7 + 7;
 
-void solve() {}
+void solve() {
+    int n;
+    cin >> n;
+    vector<int> a(n);
+    for (int i = 0; i < n; ++i) cin >> a[i];
+    vector<PII> vec;  // 分组循环求所有不重复的数组
+    for (int i = 0; i < n;) {
+        int j = i + 1;
+        while (j < n && a[j] != a[j - 1]) ++j;
+        vec.push_back(PII(i, j - 1));
+        i = j;
+    }
+    // 对这个区间内的所有子数组的和求和
+    auto calc = [&](int l, int r) -> int {
+        int sum = 0;
+        int len = r - l + 1;
+        for (int i = 0; i < len; ++i) {
+            sum += a[l + i] * (i + 1) * (len - i);
+            sum %= mod;
+        }
+        return sum;
+    };
+    vector<int> ps(n + 1);
+    for (int i = 0; i < n; ++i) ps[i + 1] = ps[i] + a[i];
+    int ans = 0;
+    for (auto& [l, r] : vec) {
+        if (r == l) continue;
+        ans += calc(l, r);
+        ans -= ps[r + 1] - ps[l];
+        ans %= mod;
+    }
+    ans = (ans % mod + mod) % mod;
+    cout << ans << endl;
+}
 
 signed main() {
     std::ios::sync_with_stdio(0), std::cout.tie(0), std::cin.tie(0);
