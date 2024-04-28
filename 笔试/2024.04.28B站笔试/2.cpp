@@ -4,36 +4,17 @@ using namespace std;
 
 void solve() {
     int n, k;
-    cin >> n >> k;
     string s;
-    cin >> s;
-    if (n % 2 == 0) {
-        string ans = s.substr(k - 1);
-        string t = s.substr(0, k - 1);
-        // cout << ans << endl;
-        // cout << t << endl;
-        string res = ans;
-        if (k % 2 == 1) {
-            res += t;
-        } else {
-            reverse(t.begin(), t.end());
-            res += t;
-        }
-        cout << res << endl;
+    cin >> n >> k >> s;
+    string res = s.substr(k - 1);
+    string t = s.substr(0, k - 1);
+    if (k % 2 != n % 2) {
+        res += t;
     } else {
-        string ans = s.substr(k - 1);
-        string t = s.substr(0, k - 1);
-        // cout << ans << endl;
-        // cout << t << endl;
-        string res = ans;
-        if (k % 2 == 0) {
-            res += t;
-        } else {
-            reverse(t.begin(), t.end());
-            res += t;
-        }
-        cout << res << endl;
+        reverse(t.begin(), t.end());
+        res += t;
     }
+    cout << res << endl;
 }
 
 signed main() {
