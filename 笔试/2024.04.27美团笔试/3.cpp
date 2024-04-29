@@ -1,7 +1,7 @@
 #include <bits/stdc++.h>
 #define int long long
 using namespace std;
-// static constexpr long long mod = 1000000007;
+static constexpr long long mod = 1000000007;
 // 数组合并，给定一个分割数组最小值，求有多少种分割的方法
 void solve() {
     int n, k;
