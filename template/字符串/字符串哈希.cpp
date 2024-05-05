@@ -3,7 +3,7 @@
 using namespace std;
 
 // 字符串编码
-class StringEncode {
+class StringHash {
    public:
     static constexpr long long mod = 1e9 + 7;
     const long long base = 31;
@@ -13,8 +13,8 @@ class StringEncode {
     vector<long long> mul;                            // 预先计算base的次幂
     long long encode(char c) { return c - 'a' + 1; }  // 字符编码函数
    public:
-    StringEncode() {}
-    StringEncode(string t) {
+    StringHash() {}
+    StringHash(string t) {
         s = t;
         n = s.size();
         preFix.resize(n + 1);
@@ -30,13 +30,14 @@ class StringEncode {
     }
     // 返回s的[l, r]子串的编码
     long long get_code(long long l, long long r) { return ((preFix[r + 1] - preFix[l] * mul[r - l + 1]) % mod + mod) % mod; }
+    long long get() { return get_code(0, s.size() - 1); }
 };
 // 使用示例
 class Solution {
    public:
     int distinctEchoSubstrings(string s) {
         int n = s.size();
-        StringEncode string_encode(s);
+        StringHash string_encode(s);
         unordered_set<long long> S;
         int ans = 0;
         for (int i = 0; i < n - 1; ++i) {                // 枚举起点
