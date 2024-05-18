@@ -2,7 +2,7 @@
 using std::vector;
 
 template <typename T>
-struct hungarian {  // km
+struct MyAlgorithm {  // km
     int n;
     vector<int> matchx;  // 左集合对应的匹配点
     vector<int> matchy;  // 右集合对应的匹配点
@@ -19,7 +19,7 @@ struct hungarian {  // km
     int org_n;
     int org_m;
 
-    hungarian(int _n, int _m) {
+    MyKmAlgorithm(int _n, int _m) {
         org_n = _n;
         org_m = _m;
         n = max(_n, _m);
